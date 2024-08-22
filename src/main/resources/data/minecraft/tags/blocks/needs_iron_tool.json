@@ -1,0 +1,9 @@
+{
+  "values": [
+    "ourmod:matter_block",
+    "ourmod:matter_ore",
+    "ourmod:nether_matter_ore",
+    "ourmod:end_stone_matter_ore",
+    "ourmod:deepslate_matter_ore"
+  ]
+}

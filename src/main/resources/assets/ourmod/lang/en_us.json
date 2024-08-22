@@ -1,0 +1,18 @@
+{
+  "item.ourmod.condensed_matter": "Condensed Matter",
+  "item.ourmod.raw_matter": "Raw Matter",
+
+  "item.ourmod.matter_detector": "Matter Detector",
+
+  "block.ourmod.matter_block": "Block of Matter",
+  "block.ourmod.raw_matter_block": "Block of Raw Matter",
+
+  "block.ourmod.matter_ore": "Ore of Matter",
+  "block.ourmod.deepslate_matter_ore": "Deepslate Ore of Matter",
+  "block.ourmod.end_stone_matter_ore": "Endstone Ore of Matter",
+  "block.ourmod.nether_matter_ore": "Nether Ore of Matter",
+
+  "tooltip.ourmod.matter_detector.tooltip": "Find Matter by click on blocks around you",
+
+  "creativetab.ourmod_tab": "Our Mod Tab"
+}

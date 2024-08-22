@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ourmod:matter_block"
+    }
+  ],
+  "result": {
+    "item": "ourmod:condensed_matter",
+    "count": 9
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "ourmod:condensed_matter"
+    }
+  },
+  "result": {
+    "item": "ourmod:matter_block"
+  }
+}
