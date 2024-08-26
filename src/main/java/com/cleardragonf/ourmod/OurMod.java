@@ -1,6 +1,7 @@
 package com.cleardragonf.ourmod;
 
 import com.cleardragonf.ourmod.block.ModBlocks;
+import com.cleardragonf.ourmod.block.entity.ModBlockEntities;
 import com.cleardragonf.ourmod.item.ModCreativeModTabs;
 import com.cleardragonf.ourmod.item.ModItems;
 import com.mojang.logging.LogUtils;
@@ -29,6 +30,7 @@ public class OurMod {
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
 
        modEventBus.addListener(this::commonSetup);
 

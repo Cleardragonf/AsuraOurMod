@@ -7,6 +7,8 @@
   "block.ourmod.matter_block": "Block of Matter",
   "block.ourmod.raw_matter_block": "Block of Raw Matter",
 
+  "block.ourmod.matter_conversion_block": "Conversion Block",
+
   "block.ourmod.matter_ore": "Ore of Matter",
   "block.ourmod.deepslate_matter_ore": "Deepslate Ore of Matter",
   "block.ourmod.end_stone_matter_ore": "Endstone Ore of Matter",

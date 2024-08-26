@@ -30,11 +30,18 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModBlocks.MATTER_BLOCK.get());
                         pOutput.accept(ModBlocks.RAW_MATTER_BLOCK.get());
 
+                        pOutput.accept(ModBlocks.MATTER_CONVERSION_BLOCK.get());
+
 
                         pOutput.accept(ModBlocks.MATTER_ORE.get());
                         pOutput.accept(ModBlocks.DEEPSLATE_MATTER_ORE.get());
                         pOutput.accept(ModBlocks.NETHER_MATTER_ORE.get());
                         pOutput.accept(ModBlocks.END_STONE_MATTER_ORE.get());
+                        pOutput.accept(ModBlocks.AIR_MATTER_ORE.get());
+                        pOutput.accept(ModBlocks.EARTH_DEEPSLATE_MATTER_ORE.get());
+                        pOutput.accept(ModBlocks.FIRE_NETHER_MATTER_ORE.get());
+                        pOutput.accept(ModBlocks.WATER_MATTER_ORE.get());
+                        pOutput.accept(ModBlocks.DARKNESS_END_STONE_MATTER_ORE.get());
                     })
                     .build());
 
