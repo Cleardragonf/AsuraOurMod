@@ -22,11 +22,12 @@ public class ModBlockStateProvider extends BlockStateProvider  {
         blockWithItem(ModBlocks.NETHER_MATTER_ORE);
         blockWithItem(ModBlocks.END_STONE_MATTER_ORE);
         blockWithItem(ModBlocks.MATTER_ORE);
+
+        simpleBlockWithItem( ModBlocks.MATTER_CONVERSION_BLOCK.get(),
+                new ModelFile.UncheckedModelFile(modLoc("block/matter_conversion_block")));
     }
 
     private void blockWithItem(RegistryObject<Block> blockRegistryObject){
         simpleBlockWithItem(blockRegistryObject.get(), cubeAll(blockRegistryObject.get()));
-        simpleBlock(ModBlocks.MATTER_CONVERSION_BLOCK.get(),
-                new ModelFile.UncheckedModelFile(modLoc("block/matter_conversion_block")));
     }
 }

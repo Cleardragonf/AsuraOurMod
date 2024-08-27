@@ -40,6 +40,9 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.add(ModBlocks.NETHER_MATTER_ORE.get(),
                 block -> createMatterOreDrops(ModBlocks.NETHER_MATTER_ORE.get(), ModItems.RAW_MATTER.get()));
 
+        this.add(ModBlocks.END_STONE_MATTER_ORE.get(),
+                block -> createMatterOreDrops(ModBlocks.END_STONE_MATTER_ORE.get(), ModItems.RAW_MATTER.get()));
+
     }
 
     protected LootTable.Builder createMatterOreDrops(Block pBlock, Item item){

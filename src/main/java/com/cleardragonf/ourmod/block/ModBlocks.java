@@ -45,25 +45,6 @@ public class ModBlocks {
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.END_STONE)
                     .strength(2f).requiresCorrectToolForDrops(), UniformInt.of(3, 6)));
 
-    //TODO:  Needs REcipes...
-    public static final RegistryObject<Block> AIR_MATTER_ORE = registerBlock("air_matter_ore",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
-                    .strength(2f).requiresCorrectToolForDrops(), UniformInt.of(3, 6)));
-    public static final RegistryObject<Block> EARTH_DEEPSLATE_MATTER_ORE = registerBlock("earth_deepslate_matter_ore",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE)
-                    .strength(2f).requiresCorrectToolForDrops(), UniformInt.of(3, 6)));
-    public static final RegistryObject<Block> FIRE_NETHER_MATTER_ORE = registerBlock("fire_nether_matter_ore",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.NETHERRACK)
-                    .strength(2f).requiresCorrectToolForDrops(), UniformInt.of(3, 6)));
-    public static final RegistryObject<Block> WATER_MATTER_ORE = registerBlock("water_matter_ore",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
-                    .strength(2f).requiresCorrectToolForDrops(), UniformInt.of(3, 6)));
-    public static final RegistryObject<Block> DARKNESS_END_STONE_MATTER_ORE = registerBlock("darkness_end_stone_matter_ore",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.END_STONE)
-                    .strength(2f).requiresCorrectToolForDrops(), UniformInt.of(3, 6)));
-
-
-
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block){
          RegistryObject<T> toReturn = BLOCKS.register(name, block);

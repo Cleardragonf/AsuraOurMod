@@ -4,9 +4,12 @@ import com.cleardragonf.ourmod.block.ModBlocks;
 import com.cleardragonf.ourmod.block.entity.ModBlockEntities;
 import com.cleardragonf.ourmod.item.ModCreativeModTabs;
 import com.cleardragonf.ourmod.item.ModItems;
+import com.cleardragonf.ourmod.screens.MatterConversionScreen;
+import com.cleardragonf.ourmod.screens.ModMenuTypes;
 import com.mojang.logging.LogUtils;
-import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -30,9 +33,12 @@ public class OurMod {
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+
         ModBlockEntities.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
 
        modEventBus.addListener(this::commonSetup);
+
 
         MinecraftForge.EVENT_BUS.register(this);
         modEventBus.addListener(this::addCreative);
@@ -52,6 +58,14 @@ public class OurMod {
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event){
 
+    }
+
+    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    public static class ClientModEvents{
+        @SubscribeEvent
+        public static void onClientSetup(FMLClientSetupEvent event){
+            MenuScreens.register(ModMenuTypes.MATTER_CONVERSION_MENU.get(), MatterConversionScreen::new);
+        }
     }
 
 }

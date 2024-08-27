@@ -3,6 +3,7 @@ package com.cleardragonf.ourmod.item;
 import com.cleardragonf.ourmod.OurMod;
 import com.cleardragonf.ourmod.block.ModBlocks;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -37,11 +38,6 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModBlocks.DEEPSLATE_MATTER_ORE.get());
                         pOutput.accept(ModBlocks.NETHER_MATTER_ORE.get());
                         pOutput.accept(ModBlocks.END_STONE_MATTER_ORE.get());
-                        pOutput.accept(ModBlocks.AIR_MATTER_ORE.get());
-                        pOutput.accept(ModBlocks.EARTH_DEEPSLATE_MATTER_ORE.get());
-                        pOutput.accept(ModBlocks.FIRE_NETHER_MATTER_ORE.get());
-                        pOutput.accept(ModBlocks.WATER_MATTER_ORE.get());
-                        pOutput.accept(ModBlocks.DARKNESS_END_STONE_MATTER_ORE.get());
                     })
                     .build());
 

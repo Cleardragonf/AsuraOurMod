@@ -1,6 +1,7 @@
 package com.cleardragonf.ourmod.block.entity;
 
 import com.cleardragonf.ourmod.item.ModItems;
+import com.cleardragonf.ourmod.screens.MatterConversionMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -101,7 +102,7 @@ public class MatterConversionBlockEntity extends BlockEntity implements MenuProv
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
-        return null;
+        return new MatterConversionMenu(i, inventory, this, this.data);
     }
 
     @Override
