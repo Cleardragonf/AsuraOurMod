@@ -11,7 +11,6 @@ import net.minecraft.world.level.block.Block;
 public class ModTags {
     public static class Blocks{
         public static final TagKey<Block> MATTER_DETECTOR_VALUABLES = tag("matter_detector_valuables");
-afsdfasdf
 
         private static TagKey<Block> tag(String name){
             return BlockTags.create(new ResourceLocation(OurMod.MODID, name));
