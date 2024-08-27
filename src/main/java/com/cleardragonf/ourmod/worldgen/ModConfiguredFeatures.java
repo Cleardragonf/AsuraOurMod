@@ -28,32 +28,17 @@ public class ModConfiguredFeatures {
 
     public static void boostrap(BootstapContext<ConfiguredFeature<?,?>> context){
         RuleTest stoneReplaceable = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
-        RuleTest airReplaceables = new BlockMatchTest(Blocks.AIR);
         RuleTest deepslateReplaceables = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
         RuleTest netherrackREplaceables = new BlockMatchTest(Blocks.NETHERRACK);
         RuleTest endReplaceables = new BlockMatchTest(Blocks.END_STONE);
-        RuleTest waterReplaceables = new BlockMatchTest(Blocks.WATER);
 
-        List<OreConfiguration.TargetBlockState> netherrackReplacementOres = List.of(
-                OreConfiguration.target(netherrackREplaceables, ModBlocks.NETHER_MATTER_ORE.get().defaultBlockState()),
-                OreConfiguration.target(netherrackREplaceables, ModBlocks.FIRE_NETHER_MATTER_ORE.get().defaultBlockState())
-        );
-
-        List<OreConfiguration.TargetBlockState> endReplacementOres = List.of(
-                OreConfiguration.target(endReplaceables, ModBlocks.DARKNESS_END_STONE_MATTER_ORE.get().defaultBlockState())
-        );
-
-        List<OreConfiguration.TargetBlockState> overworldMatterOres = List.of(
-                OreConfiguration.target(stoneReplaceable, ModBlocks.MATTER_ORE.get().defaultBlockState()),
-                OreConfiguration.target(deepslateReplaceables, ModBlocks.DEEPSLATE_MATTER_ORE.get().defaultBlockState()),
-                OreConfiguration.target(airReplaceables, ModBlocks.AIR_MATTER_ORE.get().defaultBlockState()),
-                OreConfiguration.target(deepslateReplaceables, ModBlocks.EARTH_DEEPSLATE_MATTER_ORE.get().defaultBlockState()),
-                OreConfiguration.target(waterReplaceables, ModBlocks.WATER_MATTER_ORE.get().defaultBlockState())
+        List<OreConfiguration.TargetBlockState> overworldMatterOres = List.of(OreConfiguration.target(stoneReplaceable, ModBlocks.MATTER_ORE.get().defaultBlockState()),
+                OreConfiguration.target(deepslateReplaceables, ModBlocks.DEEPSLATE_MATTER_ORE.get().defaultBlockState())
         );
 
         register(context, OVERWORLD_MATTER_ORE_KEY, Feature.ORE, new OreConfiguration(overworldMatterOres, 9));
-        register(context, NETHER_MATTER_ORE_KEY, Feature.ORE, new OreConfiguration(netherrackReplacementOres, 9));
-        register(context, END_MATTER_ORE_KEY, Feature.ORE, new OreConfiguration(endReplacementOres,9));
+        register(context, NETHER_MATTER_ORE_KEY, Feature.ORE, new OreConfiguration(netherrackREplaceables, ModBlocks.NETHER_MATTER_ORE.get().defaultBlockState(), 9));
+        register(context, END_MATTER_ORE_KEY, Feature.ORE, new OreConfiguration(endReplaceables, ModBlocks.END_STONE_MATTER_ORE.get().defaultBlockState(), 9));
 
 
 

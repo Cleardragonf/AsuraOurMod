@@ -101,7 +101,7 @@ public class MatterConversionBlockEntity extends BlockEntity implements MenuProv
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
-        return
+        return null;
     }
 
     @Override

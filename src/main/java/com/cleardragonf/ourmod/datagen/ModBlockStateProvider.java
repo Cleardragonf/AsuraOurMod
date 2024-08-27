@@ -22,11 +22,6 @@ public class ModBlockStateProvider extends BlockStateProvider  {
         blockWithItem(ModBlocks.NETHER_MATTER_ORE);
         blockWithItem(ModBlocks.END_STONE_MATTER_ORE);
         blockWithItem(ModBlocks.MATTER_ORE);
-        blockWithItem(ModBlocks.AIR_MATTER_ORE);
-        blockWithItem(ModBlocks.EARTH_DEEPSLATE_MATTER_ORE);
-        blockWithItem(ModBlocks.FIRE_NETHER_MATTER_ORE);
-        blockWithItem(ModBlocks.WATER_MATTER_ORE);
-        blockWithItem(ModBlocks.DARKNESS_END_STONE_MATTER_ORE);
     }
 
     private void blockWithItem(RegistryObject<Block> blockRegistryObject){

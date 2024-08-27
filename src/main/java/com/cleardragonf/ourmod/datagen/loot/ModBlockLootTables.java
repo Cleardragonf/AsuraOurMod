@@ -40,17 +40,6 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.add(ModBlocks.NETHER_MATTER_ORE.get(),
                 block -> createMatterOreDrops(ModBlocks.NETHER_MATTER_ORE.get(), ModItems.RAW_MATTER.get()));
 
-        //TODO: UPDATE THE ITEM THAT DROPS....
-        this.add(ModBlocks.AIR_MATTER_ORE.get(),
-                block -> createMatterOreDrops(ModBlocks.AIR_MATTER_ORE.get(), ModItems.RAW_MATTER.get()));
-        this.add(ModBlocks.EARTH_DEEPSLATE_MATTER_ORE.get(),
-                block -> createMatterOreDrops(ModBlocks.EARTH_DEEPSLATE_MATTER_ORE.get(), ModItems.RAW_MATTER.get()));
-        this.add(ModBlocks.FIRE_NETHER_MATTER_ORE.get(),
-                block -> createMatterOreDrops(ModBlocks.FIRE_NETHER_MATTER_ORE.get(), ModItems.RAW_MATTER.get()));
-        this.add(ModBlocks.WATER_MATTER_ORE.get(),
-                block -> createMatterOreDrops(ModBlocks.WATER_MATTER_ORE.get(), ModItems.RAW_MATTER.get()));
-        this.add(ModBlocks.DARKNESS_END_STONE_MATTER_ORE.get(),
-                block -> createMatterOreDrops(ModBlocks.DARKNESS_END_STONE_MATTER_ORE.get(), ModItems.RAW_MATTER.get()));
     }
 
     protected LootTable.Builder createMatterOreDrops(Block pBlock, Item item){

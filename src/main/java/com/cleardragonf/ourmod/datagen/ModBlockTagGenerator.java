@@ -24,13 +24,7 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                 .add(ModBlocks.MATTER_ORE.get(),
                         ModBlocks.NETHER_MATTER_ORE.get(),
                         ModBlocks.END_STONE_MATTER_ORE.get(),
-                        ModBlocks.DEEPSLATE_MATTER_ORE.get(),
-                        ModBlocks.AIR_MATTER_ORE.get(),
-                        ModBlocks.EARTH_DEEPSLATE_MATTER_ORE.get(),
-                        ModBlocks.FIRE_NETHER_MATTER_ORE.get(),
-                        ModBlocks.WATER_MATTER_ORE.get(),
-                        ModBlocks.DARKNESS_END_STONE_MATTER_ORE.get()
-
+                        ModBlocks.DEEPSLATE_MATTER_ORE.get()
                         );
 
 
@@ -47,12 +41,7 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                 .add(ModBlocks.MATTER_ORE.get(),
                         ModBlocks.NETHER_MATTER_ORE.get(),
                         ModBlocks.END_STONE_MATTER_ORE.get(),
-                        ModBlocks.DEEPSLATE_MATTER_ORE.get(),
-                        ModBlocks.AIR_MATTER_ORE.get(),
-                        ModBlocks.EARTH_DEEPSLATE_MATTER_ORE.get(),
-                        ModBlocks.FIRE_NETHER_MATTER_ORE.get(),
-                        ModBlocks.WATER_MATTER_ORE.get(),
-                        ModBlocks.DARKNESS_END_STONE_MATTER_ORE.get()
+                        ModBlocks.DEEPSLATE_MATTER_ORE.get()
                 );
 
 
