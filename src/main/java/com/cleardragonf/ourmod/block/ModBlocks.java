@@ -35,6 +35,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> MATTER_ORE = registerBlock("matter_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
                     .strength(2f).requiresCorrectToolForDrops(), UniformInt.of(3, 6)));
+    public static final RegistryObject<Block> WATER_MATTER_ORE = registerBlock("water_matter_ore",
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
+                    .strength(2f).requiresCorrectToolForDrops(), UniformInt.of(3, 6)));
     public static final RegistryObject<Block> DEEPSLATE_MATTER_ORE = registerBlock("deepslate_matter_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE)
                     .strength(2f).requiresCorrectToolForDrops(), UniformInt.of(3, 6)));

@@ -35,6 +35,7 @@ public class ModCreativeModTabs {
 
 
                         pOutput.accept(ModBlocks.MATTER_ORE.get());
+                        pOutput.accept(ModBlocks.WATER_MATTER_ORE.get());
                         pOutput.accept(ModBlocks.DEEPSLATE_MATTER_ORE.get());
                         pOutput.accept(ModBlocks.NETHER_MATTER_ORE.get());
                         pOutput.accept(ModBlocks.END_STONE_MATTER_ORE.get());

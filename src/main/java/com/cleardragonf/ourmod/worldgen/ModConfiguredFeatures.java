@@ -23,6 +23,7 @@ import java.util.List;
 public class ModConfiguredFeatures {
 
     public static final ResourceKey<ConfiguredFeature<?,?>> OVERWORLD_MATTER_ORE_KEY = registerKey("matter_ore");
+    public static final ResourceKey<ConfiguredFeature<?,?>> OVERWORLD_WATER_MATTER_ORE_KEY = registerKey("water_matter_ore");
     public static final ResourceKey<ConfiguredFeature<?,?>> NETHER_MATTER_ORE_KEY = registerKey("nether_matter_ore");
     public static final ResourceKey<ConfiguredFeature<?,?>> END_MATTER_ORE_KEY = registerKey("end_matter_ore");
 
@@ -32,11 +33,17 @@ public class ModConfiguredFeatures {
         RuleTest netherrackREplaceables = new BlockMatchTest(Blocks.NETHERRACK);
         RuleTest endReplaceables = new BlockMatchTest(Blocks.END_STONE);
 
-        List<OreConfiguration.TargetBlockState> overworldMatterOres = List.of(OreConfiguration.target(stoneReplaceable, ModBlocks.MATTER_ORE.get().defaultBlockState()),
+        List<OreConfiguration.TargetBlockState> overworldMatterOres = List.of(
+                OreConfiguration.target(stoneReplaceable, ModBlocks.MATTER_ORE.get().defaultBlockState()),
+                OreConfiguration.target(stoneReplaceable, ModBlocks.WATER_MATTER_ORE.get().defaultBlockState()),
                 OreConfiguration.target(deepslateReplaceables, ModBlocks.DEEPSLATE_MATTER_ORE.get().defaultBlockState())
+        );
+        List<OreConfiguration.TargetBlockState> overworldWaterOres = List.of(
+                OreConfiguration.target(stoneReplaceable, ModBlocks.WATER_MATTER_ORE.get().defaultBlockState())
         );
 
         register(context, OVERWORLD_MATTER_ORE_KEY, Feature.ORE, new OreConfiguration(overworldMatterOres, 9));
+        register(context, OVERWORLD_WATER_MATTER_ORE_KEY, Feature.ORE, new OreConfiguration(overworldWaterOres, 9));
         register(context, NETHER_MATTER_ORE_KEY, Feature.ORE, new OreConfiguration(netherrackREplaceables, ModBlocks.NETHER_MATTER_ORE.get().defaultBlockState(), 9));
         register(context, END_MATTER_ORE_KEY, Feature.ORE, new OreConfiguration(endReplaceables, ModBlocks.END_STONE_MATTER_ORE.get().defaultBlockState(), 9));
 

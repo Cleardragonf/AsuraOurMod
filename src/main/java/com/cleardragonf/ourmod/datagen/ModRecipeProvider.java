@@ -16,7 +16,7 @@ import java.util.function.Consumer;
 
 public class ModRecipeProvider extends RecipeProvider {
     private static final List<ItemLike> MATTER_SMELTABLES = List.of(ModItems.RAW_MATTER.get(),
-            ModBlocks.MATTER_ORE.get(), ModBlocks.DEEPSLATE_MATTER_ORE.get(), ModBlocks.NETHER_MATTER_ORE.get(), ModBlocks.END_STONE_MATTER_ORE.get());
+            ModBlocks.MATTER_ORE.get(), ModBlocks.WATER_MATTER_ORE.get(), ModBlocks.DEEPSLATE_MATTER_ORE.get(), ModBlocks.NETHER_MATTER_ORE.get(), ModBlocks.END_STONE_MATTER_ORE.get());
 
     public ModRecipeProvider(PackOutput pOutput) {
         super(pOutput);

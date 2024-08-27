@@ -15,6 +15,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class ModBiomeModifiers {
 
     public  static final ResourceKey<BiomeModifier> ADD_MATTER_ORE = registerKey("add_matter_ore");
+    public  static final ResourceKey<BiomeModifier> ADD_WATER_MATTER_ORE = registerKey("add_water_matter_ore");
+
     public  static final ResourceKey<BiomeModifier> ADD_NETHER_MATTER_ORE = registerKey("add_nether_matter_ore");
     public  static final ResourceKey<BiomeModifier> ADD_END_MATTER_ORE = registerKey("add_end_matter_ore");
 
@@ -25,6 +27,11 @@ public class ModBiomeModifiers {
         context.register(ADD_MATTER_ORE, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
                 biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.MATTER_ORE_PLACED_KEY)),
+                GenerationStep.Decoration.UNDERGROUND_ORES));
+
+        context.register(ADD_WATER_MATTER_ORE, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
+                biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
+                HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.WATER_MATTER_ORE_PLACED_KEY)),
                 GenerationStep.Decoration.UNDERGROUND_ORES));
 
         context.register(ADD_NETHER_MATTER_ORE, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(

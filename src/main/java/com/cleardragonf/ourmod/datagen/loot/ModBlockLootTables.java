@@ -33,6 +33,8 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
         this.add(ModBlocks.MATTER_ORE.get(),
                 block -> createMatterOreDrops(ModBlocks.MATTER_ORE.get(), ModItems.RAW_MATTER.get()));
+        this.add(ModBlocks.WATER_MATTER_ORE.get(),
+                block -> createMatterOreDrops(ModBlocks.WATER_MATTER_ORE.get(), ModItems.RAW_MATTER.get()));
 
         this.add(ModBlocks.DEEPSLATE_MATTER_ORE.get(),
                 block -> createMatterOreDrops(ModBlocks.DEEPSLATE_MATTER_ORE.get(), ModItems.RAW_MATTER.get()));
