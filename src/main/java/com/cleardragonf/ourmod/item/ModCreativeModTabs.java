@@ -23,6 +23,19 @@ public class ModCreativeModTabs {
                     .displayItems((pParameters, pOutput) -> {
                         pOutput.accept(ModItems.CONDENSED_MATTER.get());
                         pOutput.accept(ModItems.RAW_MATTER.get());
+                        pOutput.accept(ModItems.RAW_WATER_MATTER.get());
+                        pOutput.accept(ModItems.PURIFIED_WATER_MATTER.get());
+                        pOutput.accept(ModItems.RAW_WIND_MATTER.get());
+                        pOutput.accept(ModItems.RAW_WIND_MATTER.get());
+                        pOutput.accept(ModItems.RAW_FIRE_MATTER.get());
+                        pOutput.accept(ModItems.PURIFIED_FIRE_MATTER.get());
+                        pOutput.accept(ModItems.RAW_EARTH_MATTER.get());
+                        pOutput.accept(ModItems.PURIFIED_EARTH_MATTER.get());
+                        pOutput.accept(ModItems.RAW_DARKNESS_MATTER.get());
+                        pOutput.accept(ModItems.PURIFIED_DARKNESS_MATTER.get());
+                        pOutput.accept(ModItems.RAW_LIGHT_MATTER.get());
+                        pOutput.accept(ModItems.PURIFIED_LIGHT_MATTER.get());
+
 
 
                         pOutput.accept(ModItems.MATTER_DETECTOR.get());
@@ -31,11 +44,17 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModBlocks.MATTER_BLOCK.get());
                         pOutput.accept(ModBlocks.RAW_MATTER_BLOCK.get());
 
+
                         pOutput.accept(ModBlocks.MATTER_CONVERSION_BLOCK.get());
 
 
                         pOutput.accept(ModBlocks.MATTER_ORE.get());
                         pOutput.accept(ModBlocks.WATER_MATTER_ORE.get());
+                        pOutput.accept(ModBlocks.WIND_MATTER_ORE.get());
+                        pOutput.accept(ModBlocks.EARTH_MATTER_ORE.get());
+                        pOutput.accept(ModBlocks.FIRE_MATTER_ORE.get());
+                        pOutput.accept(ModBlocks.DARKNESS_MATTER_ORE.get());
+                        pOutput.accept(ModBlocks.LIGHT_MATTER_ORE.get());
                         pOutput.accept(ModBlocks.DEEPSLATE_MATTER_ORE.get());
                         pOutput.accept(ModBlocks.NETHER_MATTER_ORE.get());
                         pOutput.accept(ModBlocks.END_STONE_MATTER_ORE.get());

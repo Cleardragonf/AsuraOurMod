@@ -50,8 +50,6 @@ public class OurMod {
 
     private void addCreative(BuildCreativeModeTabContentsEvent event){
         if(event.getTabKey() == CreativeModeTabs.INGREDIENTS){
-            event.accept(ModItems.CONDENSED_MATTER);
-            event.accept(ModItems.RAW_MATTER);
         }
     }
 

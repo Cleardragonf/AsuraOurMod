@@ -1,6 +1,18 @@
 {
   "item.ourmod.condensed_matter": "Condensed Matter",
   "item.ourmod.raw_matter": "Raw Matter",
+  "item.ourmod.raw_water_matter": "Raw Water Matter",
+  "item.ourmod.purified_water_matter": "Purified Water Matter",
+  "item.ourmod.raw_wind_matter": "Raw Wind Matter",
+  "item.ourmod.purified_wind_matter": "Purified Wind Matter",
+  "item.ourmod.raw_earth_matter": "Raw Earth Matter",
+  "item.ourmod.purified_earth_matter": "Purified Earth Matter",
+  "item.ourmod.raw_fire_matter": "Raw Fire Matter",
+  "item.ourmod.purified_fire_matter": "Purified Fire Matter",
+  "item.ourmod.raw_darkness_matter": "Raw Darkness Matter",
+  "item.ourmod.purified_darkness_matter": "Purified Darkness Matter",
+  "item.ourmod.raw_light_matter": "Raw Light Matter",
+  "item.ourmod.purified_light_matter": "Purified Light Matter",
 
   "item.ourmod.matter_detector": "Matter Detector",
 
@@ -10,6 +22,12 @@
   "block.ourmod.matter_conversion_block": "Conversion Block",
 
   "block.ourmod.matter_ore": "Ore of Matter",
+  "block.ourmod.wind_matter_ore": "Wind Matter Ore",
+  "block.ourmod.water_matter_ore": "Water Matter Ore",
+  "block.ourmod.earth_matter_ore": "Earth Matter Ore",
+  "block.ourmod.fire_matter_ore": "Fire Matter Ore",
+  "block.ourmod.darkness_matter_ore": "Darkness Matter Ore",
+  "block.ourmod.light_matter_ore": "Light Matter Ore",
   "block.ourmod.deepslate_matter_ore": "Deepslate Ore of Matter",
   "block.ourmod.end_stone_matter_ore": "Endstone Ore of Matter",
   "block.ourmod.nether_matter_ore": "Nether Ore of Matter",

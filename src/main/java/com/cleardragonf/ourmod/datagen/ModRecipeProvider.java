@@ -16,8 +16,15 @@ import java.util.function.Consumer;
 
 public class ModRecipeProvider extends RecipeProvider {
     private static final List<ItemLike> MATTER_SMELTABLES = List.of(ModItems.RAW_MATTER.get(),
-            ModBlocks.MATTER_ORE.get(), ModBlocks.WATER_MATTER_ORE.get(), ModBlocks.DEEPSLATE_MATTER_ORE.get(), ModBlocks.NETHER_MATTER_ORE.get(), ModBlocks.END_STONE_MATTER_ORE.get());
-
+            ModBlocks.MATTER_ORE.get(), ModBlocks.WATER_MATTER_ORE.get(),
+            ModBlocks.DEEPSLATE_MATTER_ORE.get(), ModBlocks.NETHER_MATTER_ORE.get(),
+            ModBlocks.END_STONE_MATTER_ORE.get());
+    private static final List<ItemLike> WATER_SMELTABLES = List.of(ModItems.RAW_WATER_MATTER.get());
+    private static final List<ItemLike> WIND_SMELTABLES = List.of(ModItems.RAW_WIND_MATTER.get());
+    private static final List<ItemLike> FIRE_SMELTABLES = List.of(ModItems.RAW_FIRE_MATTER.get());
+    private static final List<ItemLike> EARTH_SMELTABLES = List.of(ModItems.RAW_EARTH_MATTER.get());
+    private static final List<ItemLike> DARKNESS_SMELTABLES = List.of(ModItems.RAW_DARKNESS_MATTER.get());
+    private static final List<ItemLike> LIGHT_SMELTABLES = List.of(ModItems.RAW_LIGHT_MATTER.get());
     public ModRecipeProvider(PackOutput pOutput) {
         super(pOutput);
     }
@@ -26,6 +33,12 @@ public class ModRecipeProvider extends RecipeProvider {
     protected void buildRecipes(Consumer<FinishedRecipe> pWriter) {
         oreBlasting(pWriter, MATTER_SMELTABLES, RecipeCategory.MISC, ModItems.CONDENSED_MATTER.get(), 0.25F, 100, "matter");
         oreSmelting(pWriter, MATTER_SMELTABLES, RecipeCategory.MISC, ModItems.CONDENSED_MATTER.get(), 0.25F, 100, "matter");
+        oreSmelting(pWriter, WATER_SMELTABLES, RecipeCategory.MISC, ModItems.PURIFIED_WATER_MATTER.get(), 0.25F, 100, "water_matter");
+        oreSmelting(pWriter, WIND_SMELTABLES, RecipeCategory.MISC, ModItems.PURIFIED_WIND_MATTER.get(), 0.25F, 100, "wind_matter");
+        oreSmelting(pWriter, FIRE_SMELTABLES, RecipeCategory.MISC, ModItems.PURIFIED_FIRE_MATTER.get(), 0.25F, 100, "fire_matter");
+        oreSmelting(pWriter, EARTH_SMELTABLES, RecipeCategory.MISC, ModItems.PURIFIED_EARTH_MATTER.get(), 0.25F, 100, "earth_matter");
+        oreSmelting(pWriter, DARKNESS_SMELTABLES, RecipeCategory.MISC, ModItems.PURIFIED_DARKNESS_MATTER.get(), 0.25F, 100, "darkness_matter");
+        oreSmelting(pWriter, LIGHT_SMELTABLES, RecipeCategory.MISC, ModItems.PURIFIED_LIGHT_MATTER.get(), 0.25F, 100, "light_matter");
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.MATTER_BLOCK.get())
                 .pattern("XXX")

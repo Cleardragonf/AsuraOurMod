@@ -24,6 +24,11 @@ public class ModConfiguredFeatures {
 
     public static final ResourceKey<ConfiguredFeature<?,?>> OVERWORLD_MATTER_ORE_KEY = registerKey("matter_ore");
     public static final ResourceKey<ConfiguredFeature<?,?>> OVERWORLD_WATER_MATTER_ORE_KEY = registerKey("water_matter_ore");
+    public static final ResourceKey<ConfiguredFeature<?,?>> OVERWORLD_WIND_MATTER_ORE_KEY = registerKey("wind_matter_ore");
+    public static final ResourceKey<ConfiguredFeature<?,?>> OVERWORLD_FIRE_MATTER_ORE_KEY = registerKey("fire_matter_ore");
+    public static final ResourceKey<ConfiguredFeature<?,?>> OVERWORLD_EARTH_MATTER_ORE_KEY = registerKey("earth_matter_ore");
+    public static final ResourceKey<ConfiguredFeature<?,?>> OVERWORLD_DARKNESS_MATTER_ORE_KEY = registerKey("darkness_matter_ore");
+    public static final ResourceKey<ConfiguredFeature<?,?>> OVERWORLD_LIGHT_MATTER_ORE_KEY = registerKey("light_matter_ore");
     public static final ResourceKey<ConfiguredFeature<?,?>> NETHER_MATTER_ORE_KEY = registerKey("nether_matter_ore");
     public static final ResourceKey<ConfiguredFeature<?,?>> END_MATTER_ORE_KEY = registerKey("end_matter_ore");
 
@@ -41,9 +46,30 @@ public class ModConfiguredFeatures {
         List<OreConfiguration.TargetBlockState> overworldWaterOres = List.of(
                 OreConfiguration.target(stoneReplaceable, ModBlocks.WATER_MATTER_ORE.get().defaultBlockState())
         );
+        List<OreConfiguration.TargetBlockState> overworldWindOres = List.of(
+                OreConfiguration.target(stoneReplaceable, ModBlocks.WIND_MATTER_ORE.get().defaultBlockState())
+        );
+        List<OreConfiguration.TargetBlockState> overworldFireOres = List.of(
+                OreConfiguration.target(stoneReplaceable, ModBlocks.FIRE_MATTER_ORE.get().defaultBlockState())
+        );
+        List<OreConfiguration.TargetBlockState> overworldEarthOres = List.of(
+                OreConfiguration.target(stoneReplaceable, ModBlocks.EARTH_MATTER_ORE.get().defaultBlockState())
+        );
+        List<OreConfiguration.TargetBlockState> overworldDarknessOres = List.of(
+                OreConfiguration.target(stoneReplaceable, ModBlocks.DARKNESS_MATTER_ORE.get().defaultBlockState())
+        );
+        List<OreConfiguration.TargetBlockState> overworldLightOres = List.of(
+                OreConfiguration.target(stoneReplaceable, ModBlocks.LIGHT_MATTER_ORE.get().defaultBlockState())
+        );
+
 
         register(context, OVERWORLD_MATTER_ORE_KEY, Feature.ORE, new OreConfiguration(overworldMatterOres, 9));
         register(context, OVERWORLD_WATER_MATTER_ORE_KEY, Feature.ORE, new OreConfiguration(overworldWaterOres, 9));
+        register(context, OVERWORLD_WIND_MATTER_ORE_KEY, Feature.ORE, new OreConfiguration(overworldWindOres, 9));
+        register(context, OVERWORLD_FIRE_MATTER_ORE_KEY, Feature.ORE, new OreConfiguration(overworldFireOres, 9));
+        register(context, OVERWORLD_EARTH_MATTER_ORE_KEY, Feature.ORE, new OreConfiguration(overworldEarthOres, 9));
+        register(context, OVERWORLD_DARKNESS_MATTER_ORE_KEY, Feature.ORE, new OreConfiguration(overworldDarknessOres, 9));
+        register(context, OVERWORLD_LIGHT_MATTER_ORE_KEY, Feature.ORE, new OreConfiguration(overworldLightOres, 9));
         register(context, NETHER_MATTER_ORE_KEY, Feature.ORE, new OreConfiguration(netherrackREplaceables, ModBlocks.NETHER_MATTER_ORE.get().defaultBlockState(), 9));
         register(context, END_MATTER_ORE_KEY, Feature.ORE, new OreConfiguration(endReplaceables, ModBlocks.END_STONE_MATTER_ORE.get().defaultBlockState(), 9));
 

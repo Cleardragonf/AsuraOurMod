@@ -37,7 +37,23 @@ public class ModBlocks {
                     .strength(2f).requiresCorrectToolForDrops(), UniformInt.of(3, 6)));
     public static final RegistryObject<Block> WATER_MATTER_ORE = registerBlock("water_matter_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
-                    .strength(2f).requiresCorrectToolForDrops(), UniformInt.of(3, 6)));
+                    .strength(15.0f, 100.0f).requiresCorrectToolForDrops(), UniformInt.of(1, 9)));
+    public static final RegistryObject<Block> WIND_MATTER_ORE = registerBlock("wind_matter_ore",
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
+                    .strength(15.0f, 100.0f).requiresCorrectToolForDrops(), UniformInt.of(1, 9)));
+    public static final RegistryObject<Block> FIRE_MATTER_ORE = registerBlock("fire_matter_ore",
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
+                    .strength(15.0f, 100.0f).requiresCorrectToolForDrops(), UniformInt.of(1, 9)));
+    public static final RegistryObject<Block> EARTH_MATTER_ORE = registerBlock("earth_matter_ore",
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
+                    .strength(15.0f, 100.0f).requiresCorrectToolForDrops(), UniformInt.of(1, 9)));
+    public static final RegistryObject<Block> DARKNESS_MATTER_ORE = registerBlock("darkness_matter_ore",
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
+                    .strength(15.0f, 100.0f).requiresCorrectToolForDrops(), UniformInt.of(1, 9)));
+    public static final RegistryObject<Block> LIGHT_MATTER_ORE = registerBlock("light_matter_ore",
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
+                    .strength(15.0f, 100.0f).requiresCorrectToolForDrops(), UniformInt.of(1, 9)));
+
     public static final RegistryObject<Block> DEEPSLATE_MATTER_ORE = registerBlock("deepslate_matter_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE)
                     .strength(2f).requiresCorrectToolForDrops(), UniformInt.of(3, 6)));
