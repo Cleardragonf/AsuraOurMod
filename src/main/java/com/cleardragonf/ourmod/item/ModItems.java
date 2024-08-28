@@ -1,8 +1,10 @@
 package com.cleardragonf.ourmod.item;
 
 import com.cleardragonf.ourmod.OurMod;
+import com.cleardragonf.ourmod.entity.ModEntities;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.RecordItem;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -42,6 +44,10 @@ public class ModItems {
             () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> PURIFIED_LIGHT_MATTER = ITEMS.register("purified_light_matter",
             () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> JACKOSURPRISE_EGG = ITEMS.register("jackosurprise_egg", () ->
+            new ForgeSpawnEggItem(ModEntities.JACKOSURPRISE, 0x7e9680, 0xc5d1c5,
+                    new Item.Properties()));
 
 
     public static final RegistryObject<Item> MATTER_DETECTOR = ITEMS.register("matter_detector",

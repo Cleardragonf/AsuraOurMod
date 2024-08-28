@@ -32,6 +32,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.PURIFIED_LIGHT_MATTER);
         simpleItem(ModItems.CONDENSED_MATTER);
         simpleItem(ModItems.MATTER_DETECTOR);
+
+        withExistingParent(ModItems.JACKOSURPRISE_EGG.getId().getPath(), mcLoc("item/template_spawn_egg"));
     }
 
     private ItemModelBuilder simpleItem(RegistryObject<Item> item){

@@ -2,6 +2,9 @@ package com.cleardragonf.ourmod;
 
 import com.cleardragonf.ourmod.block.ModBlocks;
 import com.cleardragonf.ourmod.block.entity.ModBlockEntities;
+import com.cleardragonf.ourmod.entity.ModEntities;
+import com.cleardragonf.ourmod.entity.client.JackOSurpriseRenderer;
+import com.cleardragonf.ourmod.event.PumpkinBreakEventHandler;
 import com.cleardragonf.ourmod.item.ModCreativeModTabs;
 import com.cleardragonf.ourmod.item.ModItems;
 import com.cleardragonf.ourmod.screens.MatterConversionScreen;
@@ -9,6 +12,7 @@ import com.cleardragonf.ourmod.screens.ModMenuTypes;
 import com.cleardragonf.ourmod.sound.ModSounds;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -40,7 +44,11 @@ public class OurMod {
 
         ModSounds.register(modEventBus);
 
+        ModEntities.register(modEventBus);
+
        modEventBus.addListener(this::commonSetup);
+
+       MinecraftForge.EVENT_BUS.register(new PumpkinBreakEventHandler());
 
 
         MinecraftForge.EVENT_BUS.register(this);
@@ -66,6 +74,7 @@ public class OurMod {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event){
             MenuScreens.register(ModMenuTypes.MATTER_CONVERSION_MENU.get(), MatterConversionScreen::new);
+            EntityRenderers.register(ModEntities.JACKOSURPRISE.get(), JackOSurpriseRenderer::new);
         }
     }
 
