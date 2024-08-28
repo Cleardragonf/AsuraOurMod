@@ -17,12 +17,17 @@ public class ModBlockStateProvider extends BlockStateProvider  {
     @Override
     protected void registerStatesAndModels() {
         blockWithItem(ModBlocks.MATTER_BLOCK);
-        blockWithItem(ModBlocks.WATER_MATTER_ORE);
         blockWithItem(ModBlocks.RAW_MATTER_BLOCK);
         blockWithItem(ModBlocks.DEEPSLATE_MATTER_ORE);
         blockWithItem(ModBlocks.NETHER_MATTER_ORE);
         blockWithItem(ModBlocks.END_STONE_MATTER_ORE);
         blockWithItem(ModBlocks.MATTER_ORE);
+        blockWithItem(ModBlocks.WATER_MATTER_ORE);
+        blockWithItem(ModBlocks.FIRE_MATTER_ORE);
+        blockWithItem(ModBlocks.EARTH_MATTER_ORE);
+        blockWithItem(ModBlocks.WIND_MATTER_ORE);
+        blockWithItem(ModBlocks.DARKNESS_MATTER_ORE);
+        blockWithItem(ModBlocks.LIGHT_MATTER_ORE);
 
         simpleBlockWithItem( ModBlocks.MATTER_CONVERSION_BLOCK.get(),
                 new ModelFile.UncheckedModelFile(modLoc("block/matter_conversion_block")));
