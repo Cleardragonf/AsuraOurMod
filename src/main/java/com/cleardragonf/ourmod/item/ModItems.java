@@ -16,11 +16,36 @@ public class ModItems {
             () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> RAW_MATTER = ITEMS.register("raw_matter",
-            () -> new Item(new Item.Properties().durability(100 )));
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> RAW_FIRE_MATTER = ITEMS.register("raw_fire_matter",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> RAW_EARTH_MATTER = ITEMS.register("raw_earth_matter",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> RAW_WIND_MATTER = ITEMS.register("raw_wind_matter",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> RAW_WATER_MATTER = ITEMS.register("raw_water_matter",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> RAW_DARKNESS_MATTER = ITEMS.register("raw_darkness_matter",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> RAW_LIGHT_MATTER = ITEMS.register("raw_light_matter",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> PURIFIED_WATER_MATTER = ITEMS.register("purified_water_matter",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PURIFIED_WIND_MATTER = ITEMS.register("purified_wind_matter",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PURIFIED_EARTH_MATTER = ITEMS.register("purified_earth_matter",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PURIFIED_FIRE_MATTER = ITEMS.register("purified_fire_matter",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PURIFIED_DARKNESS_MATTER = ITEMS.register("purified_darkness_matter",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> PURIFIED_LIGHT_MATTER = ITEMS.register("purified_light_matter",
+            () -> new Item(new Item.Properties()));
 
 
     public static final RegistryObject<Item> MATTER_DETECTOR = ITEMS.register("matter_detector",
-            () -> new MatterDetectorItem(new Item.Properties()));
+            () -> new MatterDetectorItem(new Item.Properties().durability(100 )));
 
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);

@@ -1,4 +1,4 @@
-package com.cleardragonf.ourmod.worldgen;
+package com.cleardragonf.ourmod.worldgen.utils;
 
 import net.minecraft.world.level.levelgen.placement.*;
 

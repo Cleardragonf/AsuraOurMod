@@ -155,10 +155,39 @@ public class MatterConversionBlockEntity extends BlockEntity implements MenuProv
     }
 
     private boolean hasRecipe() {
-        boolean hasCraftingItem = this.itemHandler.getStackInSlot(INPUT_SLOT).getItem() == ModItems.RAW_MATTER.get();
-        ItemStack result = new ItemStack(ModItems.CONDENSED_MATTER.get());
+        Item inputItem = this.itemHandler.getStackInSlot(INPUT_SLOT).getItem();
 
-        return hasCraftingItem && canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
+        if(inputItem == ModItems.RAW_MATTER.get()){
+            ItemStack result = new ItemStack(ModItems.CONDENSED_MATTER.get());
+            return true && canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
+
+        }
+        else if(inputItem == ModItems.RAW_EARTH_MATTER.get()){
+            ItemStack result = new ItemStack(ModItems.PURIFIED_EARTH_MATTER.get());
+            return true && canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
+        }
+        else if(inputItem == ModItems.RAW_FIRE_MATTER.get()){
+            ItemStack result = new ItemStack(ModItems.PURIFIED_FIRE_MATTER.get());
+            return true && canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
+        }
+        else if(inputItem == ModItems.RAW_WATER_MATTER.get()){
+            ItemStack result = new ItemStack(ModItems.PURIFIED_WATER_MATTER.get());
+            return true && canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
+        }
+        else if(inputItem == ModItems.RAW_WIND_MATTER.get()){
+            ItemStack result = new ItemStack(ModItems.PURIFIED_WIND_MATTER.get());
+            return true && canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
+        }
+        else if(inputItem == ModItems.RAW_DARKNESS_MATTER.get()){
+            ItemStack result = new ItemStack(ModItems.PURIFIED_DARKNESS_MATTER.get());
+            return true && canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
+        }
+        else if(inputItem == ModItems.RAW_LIGHT_MATTER.get()){
+            ItemStack result = new ItemStack(ModItems.PURIFIED_LIGHT_MATTER.get());
+            return true && canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
+        }else{
+            return false;
+        }
     }
 
     private boolean canInsertItemIntoOutputSlot(Item item) {

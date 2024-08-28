@@ -1,6 +1,9 @@
-package com.cleardragonf.ourmod.worldgen;
+package com.cleardragonf.ourmod.worldgen.utils;
 
 import com.cleardragonf.ourmod.OurMod;
+import com.cleardragonf.ourmod.worldgen.ModBiomeModifiers;
+import com.cleardragonf.ourmod.worldgen.ModConfiguredFeatures;
+import com.cleardragonf.ourmod.worldgen.ModPlacedFeatures;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;

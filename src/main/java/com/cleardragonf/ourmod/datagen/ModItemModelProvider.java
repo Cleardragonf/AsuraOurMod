@@ -18,6 +18,18 @@ public class ModItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         simpleItem(ModItems.RAW_MATTER);
+        simpleItem(ModItems.PURIFIED_WATER_MATTER);
+        simpleItem(ModItems.RAW_WATER_MATTER);
+        simpleItem(ModItems.PURIFIED_WIND_MATTER);
+        simpleItem(ModItems.RAW_WIND_MATTER);
+        simpleItem(ModItems.RAW_FIRE_MATTER);
+        simpleItem(ModItems.PURIFIED_WIND_MATTER);
+        simpleItem(ModItems.PURIFIED_EARTH_MATTER);
+        simpleItem(ModItems.RAW_EARTH_MATTER);
+        simpleItem(ModItems.PURIFIED_DARKNESS_MATTER);
+        simpleItem(ModItems.RAW_DARKNESS_MATTER);
+        simpleItem(ModItems.RAW_LIGHT_MATTER);
+        simpleItem(ModItems.PURIFIED_LIGHT_MATTER);
         simpleItem(ModItems.CONDENSED_MATTER);
         simpleItem(ModItems.MATTER_DETECTOR);
     }

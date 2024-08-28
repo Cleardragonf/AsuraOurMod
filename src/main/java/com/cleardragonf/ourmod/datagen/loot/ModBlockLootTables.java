@@ -33,6 +33,18 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
         this.add(ModBlocks.MATTER_ORE.get(),
                 block -> createMatterOreDrops(ModBlocks.MATTER_ORE.get(), ModItems.RAW_MATTER.get()));
+        this.add(ModBlocks.WATER_MATTER_ORE.get(),
+                block -> createMatterOreDrops(ModBlocks.WATER_MATTER_ORE.get(), ModItems.RAW_WATER_MATTER.get()));
+        this.add(ModBlocks.WIND_MATTER_ORE.get(),
+                block -> createMatterOreDrops(ModBlocks.WIND_MATTER_ORE.get(), ModItems.RAW_WIND_MATTER.get()));
+        this.add(ModBlocks.FIRE_MATTER_ORE.get(),
+                block -> createMatterOreDrops(ModBlocks.FIRE_MATTER_ORE.get(), ModItems.RAW_FIRE_MATTER.get()));
+        this.add(ModBlocks.EARTH_MATTER_ORE.get(),
+                block -> createMatterOreDrops(ModBlocks.EARTH_MATTER_ORE.get(), ModItems.RAW_EARTH_MATTER.get()));
+        this.add(ModBlocks.DARKNESS_MATTER_ORE.get(),
+                block -> createMatterOreDrops(ModBlocks.DARKNESS_MATTER_ORE.get(), ModItems.RAW_DARKNESS_MATTER.get()));
+        this.add(ModBlocks.LIGHT_MATTER_ORE.get(),
+                block -> createMatterOreDrops(ModBlocks.LIGHT_MATTER_ORE.get(), ModItems.RAW_LIGHT_MATTER.get()));
 
         this.add(ModBlocks.DEEPSLATE_MATTER_ORE.get(),
                 block -> createMatterOreDrops(ModBlocks.DEEPSLATE_MATTER_ORE.get(), ModItems.RAW_MATTER.get()));

@@ -17,6 +17,7 @@ public class ModBlockStateProvider extends BlockStateProvider  {
     @Override
     protected void registerStatesAndModels() {
         blockWithItem(ModBlocks.MATTER_BLOCK);
+        blockWithItem(ModBlocks.WATER_MATTER_ORE);
         blockWithItem(ModBlocks.RAW_MATTER_BLOCK);
         blockWithItem(ModBlocks.DEEPSLATE_MATTER_ORE);
         blockWithItem(ModBlocks.NETHER_MATTER_ORE);

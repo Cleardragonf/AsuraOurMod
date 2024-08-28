@@ -1,7 +1,7 @@
 package com.cleardragonf.ourmod.datagen;
 
 import com.cleardragonf.ourmod.OurMod;
-import com.cleardragonf.ourmod.worldgen.ModWorldGenProvider;
+import com.cleardragonf.ourmod.worldgen.utils.ModWorldGenProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
