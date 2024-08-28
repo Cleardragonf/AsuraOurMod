@@ -35,15 +35,15 @@ public class ModBiomeModifiers {
                 GenerationStep.Decoration.UNDERGROUND_ORES));
 
         context.register(ADD_WATER_MATTER_ORE, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-                biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
+                biomes.getOrThrow(BiomeTags.IS_OCEAN),
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.WATER_MATTER_ORE_PLACED_KEY)),
-                GenerationStep.Decoration.UNDERGROUND_ORES));
+                GenerationStep.Decoration.RAW_GENERATION));
         context.register(ADD_WIND_MATTER_ORE, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
                 biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.WIND_MATTER_ORE_PLACED_KEY)),
-                GenerationStep.Decoration.UNDERGROUND_ORES));
+                GenerationStep.Decoration.RAW_GENERATION));
         context.register(ADD_FIRE_MATTER_ORE, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-                biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
+                biomes.getOrThrow(BiomeTags.IS_NETHER),
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.FIRE_MATTER_ORE_PLACED_KEY)),
                 GenerationStep.Decoration.UNDERGROUND_ORES));
         context.register(ADD_EARTH_MATTER_ORE, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
@@ -51,7 +51,7 @@ public class ModBiomeModifiers {
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.EARTH_MATTER_ORE_PLACED_KEY)),
                 GenerationStep.Decoration.UNDERGROUND_ORES));
         context.register(ADD_DARKNESS_MATTER_ORE, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(
-                biomes.getOrThrow(BiomeTags.IS_OVERWORLD),
+                biomes.getOrThrow(BiomeTags.IS_END),
                 HolderSet.direct(placedFeatures.getOrThrow(ModPlacedFeatures.DARKNESS_MATTER_ORE_PLACED_KEY)),
                 GenerationStep.Decoration.UNDERGROUND_ORES));
         context.register(ADD_LIGHT_MATTER_ORE, new ForgeBiomeModifiers.AddFeaturesBiomeModifier(

@@ -34,32 +34,33 @@ public class ModConfiguredFeatures {
 
     public static void boostrap(BootstapContext<ConfiguredFeature<?,?>> context){
         RuleTest stoneReplaceable = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
+        RuleTest waterReplaceables = new BlockMatchTest(Blocks.WATER);
+        RuleTest airReplaceables = new BlockMatchTest(Blocks.AIR);
         RuleTest deepslateReplaceables = new TagMatchTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
         RuleTest netherrackREplaceables = new BlockMatchTest(Blocks.NETHERRACK);
         RuleTest endReplaceables = new BlockMatchTest(Blocks.END_STONE);
 
         List<OreConfiguration.TargetBlockState> overworldMatterOres = List.of(
                 OreConfiguration.target(stoneReplaceable, ModBlocks.MATTER_ORE.get().defaultBlockState()),
-                OreConfiguration.target(stoneReplaceable, ModBlocks.WATER_MATTER_ORE.get().defaultBlockState()),
                 OreConfiguration.target(deepslateReplaceables, ModBlocks.DEEPSLATE_MATTER_ORE.get().defaultBlockState())
         );
         List<OreConfiguration.TargetBlockState> overworldWaterOres = List.of(
-                OreConfiguration.target(stoneReplaceable, ModBlocks.WATER_MATTER_ORE.get().defaultBlockState())
+                OreConfiguration.target(waterReplaceables, ModBlocks.WATER_MATTER_ORE.get().defaultBlockState())
         );
         List<OreConfiguration.TargetBlockState> overworldWindOres = List.of(
-                OreConfiguration.target(stoneReplaceable, ModBlocks.WIND_MATTER_ORE.get().defaultBlockState())
+                OreConfiguration.target(airReplaceables, ModBlocks.WIND_MATTER_ORE.get().defaultBlockState())
         );
         List<OreConfiguration.TargetBlockState> overworldFireOres = List.of(
-                OreConfiguration.target(stoneReplaceable, ModBlocks.FIRE_MATTER_ORE.get().defaultBlockState())
+                OreConfiguration.target(netherrackREplaceables, ModBlocks.FIRE_MATTER_ORE.get().defaultBlockState())
         );
         List<OreConfiguration.TargetBlockState> overworldEarthOres = List.of(
                 OreConfiguration.target(stoneReplaceable, ModBlocks.EARTH_MATTER_ORE.get().defaultBlockState())
         );
         List<OreConfiguration.TargetBlockState> overworldDarknessOres = List.of(
-                OreConfiguration.target(stoneReplaceable, ModBlocks.DARKNESS_MATTER_ORE.get().defaultBlockState())
+                OreConfiguration.target(endReplaceables, ModBlocks.DARKNESS_MATTER_ORE.get().defaultBlockState())
         );
         List<OreConfiguration.TargetBlockState> overworldLightOres = List.of(
-                OreConfiguration.target(stoneReplaceable, ModBlocks.LIGHT_MATTER_ORE.get().defaultBlockState())
+                OreConfiguration.target(airReplaceables, ModBlocks.LIGHT_MATTER_ORE.get().defaultBlockState())
         );
 
 
