@@ -19,7 +19,7 @@ public static final RegistryObject<SoundEvent> ORE_BREAKING = registerSoundEvent
         return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(OurMod.MODID, name)));
     }
 
-    public static final ForgeSoundType SOUND_BLOCK_SOUNDS =  new ForgeSoundType(1f, 1f,
+    public static final ForgeSoundType BREAKING_MATTER_ORE_SOUNDS =  new ForgeSoundType(1f, 1f,
             ModSounds.ORE_BREAKING, ModSounds.ORE_BREAKING, ModSounds.ORE_BREAKING, ModSounds.ORE_BREAKING, ModSounds.ORE_BREAKING);
 
     public static void register(IEventBus bus){
