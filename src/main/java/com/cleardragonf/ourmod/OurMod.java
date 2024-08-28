@@ -6,6 +6,7 @@ import com.cleardragonf.ourmod.item.ModCreativeModTabs;
 import com.cleardragonf.ourmod.item.ModItems;
 import com.cleardragonf.ourmod.screens.MatterConversionScreen;
 import com.cleardragonf.ourmod.screens.ModMenuTypes;
+import com.cleardragonf.ourmod.sound.ModSounds;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -36,6 +37,8 @@ public class OurMod {
 
         ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
+
+        ModSounds.register(modEventBus);
 
        modEventBus.addListener(this::commonSetup);
 

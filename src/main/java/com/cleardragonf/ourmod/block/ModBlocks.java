@@ -3,6 +3,7 @@ package com.cleardragonf.ourmod.block;
 import com.cleardragonf.ourmod.OurMod;
 import com.cleardragonf.ourmod.block.custom.MatterConversionBlock;
 import com.cleardragonf.ourmod.item.ModItems;
+import com.cleardragonf.ourmod.sound.ModSounds;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -34,34 +35,44 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> MATTER_ORE = registerBlock("matter_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
+                    .sound(ModSounds.BREAKING_MATTER_ORE_SOUNDS)
                     .strength(2f).requiresCorrectToolForDrops(), UniformInt.of(3, 6)));
     public static final RegistryObject<Block> WATER_MATTER_ORE = registerBlock("water_matter_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
+                    .sound(ModSounds.BREAKING_MATTER_ORE_SOUNDS)
                     .strength(15.0f, 100.0f).requiresCorrectToolForDrops(), UniformInt.of(1, 9)));
     public static final RegistryObject<Block> WIND_MATTER_ORE = registerBlock("wind_matter_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
+                    .sound(ModSounds.BREAKING_MATTER_ORE_SOUNDS)
                     .strength(15.0f, 100.0f).requiresCorrectToolForDrops(), UniformInt.of(1, 9)));
     public static final RegistryObject<Block> FIRE_MATTER_ORE = registerBlock("fire_matter_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
+                    .sound(ModSounds.BREAKING_MATTER_ORE_SOUNDS)
                     .strength(15.0f, 100.0f).requiresCorrectToolForDrops(), UniformInt.of(1, 9)));
     public static final RegistryObject<Block> EARTH_MATTER_ORE = registerBlock("earth_matter_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
+                    .sound(ModSounds.BREAKING_MATTER_ORE_SOUNDS)
                     .strength(15.0f, 100.0f).requiresCorrectToolForDrops(), UniformInt.of(1, 9)));
     public static final RegistryObject<Block> DARKNESS_MATTER_ORE = registerBlock("darkness_matter_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
+                    .sound(ModSounds.BREAKING_MATTER_ORE_SOUNDS)
                     .strength(15.0f, 100.0f).requiresCorrectToolForDrops(), UniformInt.of(1, 9)));
     public static final RegistryObject<Block> LIGHT_MATTER_ORE = registerBlock("light_matter_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
+                    .sound(ModSounds.BREAKING_MATTER_ORE_SOUNDS)
                     .strength(15.0f, 100.0f).requiresCorrectToolForDrops(), UniformInt.of(1, 9)));
 
     public static final RegistryObject<Block> DEEPSLATE_MATTER_ORE = registerBlock("deepslate_matter_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE)
+                    .sound(ModSounds.BREAKING_MATTER_ORE_SOUNDS)
                     .strength(2f).requiresCorrectToolForDrops(), UniformInt.of(3, 6)));
     public static final RegistryObject<Block> NETHER_MATTER_ORE = registerBlock("nether_matter_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.NETHERRACK)
+                    .sound(ModSounds.BREAKING_MATTER_ORE_SOUNDS)
                     .strength(2f).requiresCorrectToolForDrops(), UniformInt.of(3, 6)));
     public static final RegistryObject<Block> END_STONE_MATTER_ORE = registerBlock("end_stone_matter_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.END_STONE)
+                    .sound(ModSounds.BREAKING_MATTER_ORE_SOUNDS)
                     .strength(2f).requiresCorrectToolForDrops(), UniformInt.of(3, 6)));
 
 

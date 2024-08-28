@@ -1,0 +1,8 @@
+{
+  "ore_breaking": {
+    "subtitles": "sounds.ourmod.ore_breaking",
+    "sounds": [
+      "ourmod:ore_breaking"
+    ]
+  }
+}
