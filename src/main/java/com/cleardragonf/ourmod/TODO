@@ -13,7 +13,10 @@
 
     ###HALLOWEEN SPECIAL###
     •  Create a Jack 0' surprise
-        •  Once killed there will be a chance for a special drop of Jack o lantern equippment. NO RECIPE
-        •  This will make it a special ARMOR, armour repair will be with pumpkins
+        •  Make special ARMOR, armour repair will be with pumpkins
         •  Maybe a weapon too.
+        •  Add Special Items to Entities drop Loot and give it weight.
+        •  Add Death Animation to Enity
+        •  Fix Entities orientation since it's attacking backwards! ti's probabgly also walking backwards
+        •  Make it so that it only happens when the configuration file on the Server is set to "halloween"
     •  Create a spooky feel for Halloween.  Maybe make the sky red and play music througout the server????
