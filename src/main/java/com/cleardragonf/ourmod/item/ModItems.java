@@ -2,6 +2,7 @@ package com.cleardragonf.ourmod.item;
 
 import com.cleardragonf.ourmod.OurMod;
 import com.cleardragonf.ourmod.entity.ModEntities;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.RecordItem;
 import net.minecraftforge.common.ForgeSpawnEggItem;
@@ -54,6 +55,15 @@ public class ModItems {
 
     public static final RegistryObject<Item> MATTER_DETECTOR = ITEMS.register("matter_detector",
             () -> new MatterDetectorItem(new Item.Properties().durability(100 )));
+
+    public static final RegistryObject<Item> JACKOSURPRISE_HELMET = ITEMS.register("jackosurprise_helmet",
+            () -> new ArmorItem(ModArmorMaterials.PUMPKIN, ArmorItem.Type.HELMET, new Item.Properties()));
+    public static final RegistryObject<Item> JACKOSURPRISE_CHESTPLATE = ITEMS.register("jackosurprise_chestplate",
+            () -> new ArmorItem(ModArmorMaterials.PUMPKIN, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+    public static final RegistryObject<Item> JACKOSURPRISE_LEGGINGS = ITEMS.register("jackosurprise_leggings",
+            () -> new ArmorItem(ModArmorMaterials.PUMPKIN, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+    public static final RegistryObject<Item> JACKOSURPRISE_BOOTS = ITEMS.register("jackosurprise_boots",
+            () -> new ArmorItem(ModArmorMaterials.PUMPKIN, ArmorItem.Type.BOOTS, new Item.Properties()));
 
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);
