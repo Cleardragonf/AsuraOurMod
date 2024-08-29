@@ -57,7 +57,7 @@ public class ModItems {
             () -> new MatterDetectorItem(new Item.Properties().durability(100 )));
 
     public static final RegistryObject<Item> JACKOSURPRISE_HELMET = ITEMS.register("jackosurprise_helmet",
-            () -> new ArmorItem(ModArmorMaterials.PUMPKIN, ArmorItem.Type.HELMET, new Item.Properties()));
+            () -> new ModArmorItem(ModArmorMaterials.PUMPKIN, ArmorItem.Type.HELMET, new Item.Properties()));
     public static final RegistryObject<Item> JACKOSURPRISE_CHESTPLATE = ITEMS.register("jackosurprise_chestplate",
             () -> new ArmorItem(ModArmorMaterials.PUMPKIN, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
     public static final RegistryObject<Item> JACKOSURPRISE_LEGGINGS = ITEMS.register("jackosurprise_leggings",
