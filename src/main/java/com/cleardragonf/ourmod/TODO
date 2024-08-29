@@ -1,5 +1,5 @@
 ###Major Effects###
- •  ADD Block Capability for EMC or somesuch
+ •  ADD Block Capability for EMC or some such
  •  ADD Will need a block that collects EMC
  •  ADD will need to build a MultiBlock Structure
  •  ADD Look at maybe including EMC powered ChunkLoaders
@@ -7,7 +7,7 @@
  •  ADD Blocks that copy and MOVE the inners...like RFTools Space Chamber
 
     ###ORE GENERATION###
-    •  These blocks should be found in their 'natural' enviornments...
+    •  These blocks should be found in their 'natural' environments...
     •  Fire_mana etc is = 100 FM (FireMana)
 
 
@@ -15,7 +15,7 @@
     •  Create a Jack 0' surprise
         •  Update Look of the Armor and maybe get a unique effect with it?
         •  Maybe a weapon too.
-        •  Add Death Animation to Enity
-        •  Fix Entities orientation since it's attacking backwards! ti's probabgly also walking backwards
+        •  Add Death Animation to Entity
+        •  Fix Entities orientation since it's attacking backwards! ti's probably also walking backwards
         •  Make it so that it only happens when the configuration file on the Server is set to "halloween"
-    •  Create a spooky feel for Halloween.  Maybe make the sky red and play music througout the server????
+    •  Create a spooky feel for Halloween.  Maybe make the sky red and play music throughout the server????
