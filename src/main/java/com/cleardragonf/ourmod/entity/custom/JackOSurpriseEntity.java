@@ -24,6 +24,7 @@ import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Snowball;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 
@@ -179,11 +180,12 @@ public class JackOSurpriseEntity extends Monster implements RangedAttackMob {
         if (!this.level().isClientSide()) {
             // List of possible items with weights
             List<WeightedItem> weightedItems = List.of(
-                    new WeightedItem(new ItemStack(ModItems.JACKOSURPRISE_HEAD.get()), 5), // Higher weight, higher chance
-                    new WeightedItem(new ItemStack(ModItems.PURIFIED_LIGHT_MATTER.get()), 2), // Lower weight, lower chance
-                    new WeightedItem(new ItemStack(ModItems.RAW_WIND_MATTER.get()), 1),
-                    new WeightedItem(new ItemStack(Blocks.DIRT), 3),
-                    new WeightedItem(new ItemStack(ModItems.JACKOSURPRISE_EGG.get()), 4)
+                    new WeightedItem(new ItemStack(ModItems.JACKOSURPRISE_LEGGINGS.get()), 4), // Higher weight, higher chance
+                    new WeightedItem(new ItemStack(ModItems.JACKOSURPRISE_HELMET.get()), 3), // Lower weight, lower chance
+                    new WeightedItem(new ItemStack(ModItems.JACKOSURPRISE_BOOTS.get()), 2),
+                    new WeightedItem(new ItemStack(ModItems.JACKOSURPRISE_CHESTPLATE.get()), 1),
+                    new WeightedItem(new ItemStack(Items.PUMPKIN), 100),
+                    new WeightedItem(new ItemStack(Items.ROTTEN_FLESH), 200)
             );
 
             // Calculate total weight

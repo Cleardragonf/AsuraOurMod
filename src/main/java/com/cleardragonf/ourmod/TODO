@@ -13,9 +13,8 @@
 
     ###HALLOWEEN SPECIAL###
     •  Create a Jack 0' surprise
-        •  Make special ARMOR, armour repair will be with pumpkins
+        •  Update Look of the Armor and maybe get a unique effect with it?
         •  Maybe a weapon too.
-        •  Add Special Items to Entities drop Loot and give it weight.
         •  Add Death Animation to Enity
         •  Fix Entities orientation since it's attacking backwards! ti's probabgly also walking backwards
         •  Make it so that it only happens when the configuration file on the Server is set to "halloween"
