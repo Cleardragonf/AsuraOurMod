@@ -1,10 +1,13 @@
 package com.cleardragonf.ourmod.entity.custom;
 
 import com.cleardragonf.ourmod.entity.ai.JackOSurprisGoals.spawnGoals;
+import com.cleardragonf.ourmod.item.ModItems;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -14,12 +17,17 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Snowball;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+
+import java.util.List;
 
 public class JackOSurpriseEntity extends Monster implements RangedAttackMob {
     public JackOSurpriseEntity(EntityType<? extends Monster> pEntityType, Level pLevel) {
@@ -120,7 +128,6 @@ public class JackOSurpriseEntity extends Monster implements RangedAttackMob {
         }
     }
 
-
     @Override
     protected void updateWalkAnimation(float pPartialTick) {
 //        float f;
@@ -163,5 +170,65 @@ public class JackOSurpriseEntity extends Monster implements RangedAttackMob {
         projectileEntity.shoot(d1, d2 + d4, d3, 1.6F, 12.0F);
         this.playSound(SoundEvents.SNOW_GOLEM_SHOOT, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         this.level().addFreshEntity(projectileEntity);
+    }
+
+    @Override
+    protected void dropCustomDeathLoot(DamageSource pSource, int pLooting, boolean pRecentlyHit) {
+        super.dropCustomDeathLoot(pSource, pLooting, pRecentlyHit);
+
+        if (!this.level().isClientSide()) {
+            // List of possible items with weights
+            List<WeightedItem> weightedItems = List.of(
+                    new WeightedItem(new ItemStack(ModItems.JACKOSURPRISE_HEAD.get()), 5), // Higher weight, higher chance
+                    new WeightedItem(new ItemStack(ModItems.PURIFIED_LIGHT_MATTER.get()), 2), // Lower weight, lower chance
+                    new WeightedItem(new ItemStack(ModItems.RAW_WIND_MATTER.get()), 1),
+                    new WeightedItem(new ItemStack(Blocks.DIRT), 3),
+                    new WeightedItem(new ItemStack(ModItems.JACKOSURPRISE_EGG.get()), 4)
+            );
+
+            // Calculate total weight
+            int totalWeight = weightedItems.stream().mapToInt(WeightedItem::getWeight).sum();
+
+            // Number of items to drop
+            int dropCount = this.random.nextInt(3) + 1;  // Randomly drop 1 to 3 items
+
+            for (int i = 0; i < dropCount; i++) {
+                // Randomly select an item based on weight
+                int randomWeight = this.random.nextInt(totalWeight);
+                ItemStack selectedItem = null;
+
+                for (WeightedItem weightedItem : weightedItems) {
+                    randomWeight -= weightedItem.getWeight();
+                    if (randomWeight < 0) {
+                        selectedItem = weightedItem.getItem();
+                        break;
+                    }
+                }
+
+                // Ensure selectedItem is not null
+                if (selectedItem != null) {
+                    ItemEntity itemEntity = new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), selectedItem);
+                    this.level().addFreshEntity(itemEntity);
+                }
+            }
+        }
+    }
+}
+
+class WeightedItem {
+    private final ItemStack item;
+    private final int weight;
+
+    public WeightedItem(ItemStack item, int weight) {
+        this.item = item;
+        this.weight = weight;
+    }
+
+    public ItemStack getItem() {
+        return item;
+    }
+
+    public int getWeight() {
+        return weight;
     }
 }
