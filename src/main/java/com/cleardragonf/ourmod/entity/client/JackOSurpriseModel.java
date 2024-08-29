@@ -94,8 +94,9 @@ public class JackOSurpriseModel<T extends Entity> extends HierarchicalModel<T> {
 		// Animating idle
 		this.animate(((JackOSurpriseEntity) entity).idleAnimationState, ModAnimationDefinitions.MODEL_IDLE, ageInTicks, 1f);
 
-		// Animating spawn
 		this.animate(((JackOSurpriseEntity) entity).spawnAnimationState, ModAnimationDefinitions.MODEL_SPAWN, ageInTicks, 1f);
+
+
 	}
 
 

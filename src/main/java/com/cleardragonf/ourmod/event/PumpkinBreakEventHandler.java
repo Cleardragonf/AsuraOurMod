@@ -37,6 +37,7 @@ public class PumpkinBreakEventHandler {
             jackOSurprise.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
             jackOSurprise.triggerSpawnAnimation();
             world.addFreshEntity(jackOSurprise);
+            jackOSurprise.setSpawning(true);
 
             // Play a sound or trigger a particle effect (optional)
             world.gameEvent(player, GameEvent.ENTITY_PLACE, pos);

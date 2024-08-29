@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class JackOSurpriseRenderer extends MobRenderer<JackOSurpriseEntity, JackOSurpriseModel<JackOSurpriseEntity>> {
     public JackOSurpriseRenderer(EntityRendererProvider.Context pContext) {
-        super(pContext, new JackOSurpriseModel<>(pContext.bakeLayer(ModModelLayers.JACKOSURPRISE_LAYER)), 2f);
+        super(pContext, new JackOSurpriseModel<>(pContext.bakeLayer(ModModelLayers.JACKOSURPRISE_LAYER)), 0.1f);
     }
 
     @Override

@@ -16,7 +16,7 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<JackOSurpriseEntity>> JACKOSURPRISE =
             ENTITY_TYPES.register("jackosurprise", () -> EntityType.Builder.of(JackOSurpriseEntity::new, MobCategory.MONSTER)
-                    .sized(2.5f,3.0f).build("jackosurprise"));
+                    .sized(1f,1.6f).build("jackosurprise"));
 
     public static void register(IEventBus bus){
         ENTITY_TYPES.register(bus);
