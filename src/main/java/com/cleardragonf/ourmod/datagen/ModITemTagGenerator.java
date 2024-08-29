@@ -1,9 +1,11 @@
 package com.cleardragonf.ourmod.datagen;
 
 import com.cleardragonf.ourmod.OurMod;
+import com.cleardragonf.ourmod.item.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
@@ -17,6 +19,7 @@ public class ModITemTagGenerator extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-
+        this.tag(ItemTags.TRIMMABLE_ARMOR)
+                .add(ModItems.JACKOSURPRISE_CHESTPLATE.get(),ModItems.JACKOSURPRISE_HELMET.get(),ModItems.JACKOSURPRISE_BOOTS.get(),ModItems.JACKOSURPRISE_LEGGINGS.get());
     }
 }

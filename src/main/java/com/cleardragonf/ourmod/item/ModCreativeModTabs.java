@@ -47,6 +47,12 @@ public class ModCreativeModTabs {
 
                         pOutput.accept(ModBlocks.MATTER_CONVERSION_BLOCK.get());
 
+                        //TODO:  Remove these once testing is over:
+                        pOutput.accept(ModItems.JACKOSURPRISE_HELMET.get());
+                        pOutput.accept(ModItems.JACKOSURPRISE_CHESTPLATE.get());
+                        pOutput.accept(ModItems.JACKOSURPRISE_LEGGINGS.get());
+                        pOutput.accept(ModItems.JACKOSURPRISE_BOOTS.get());
+
 
                         pOutput.accept(ModBlocks.MATTER_ORE.get());
                         pOutput.accept(ModBlocks.WATER_MATTER_ORE.get());
