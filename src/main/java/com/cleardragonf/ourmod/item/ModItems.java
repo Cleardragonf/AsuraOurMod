@@ -48,6 +48,8 @@ public class ModItems {
     public static final RegistryObject<Item> JACKOSURPRISE_EGG = ITEMS.register("jackosurprise_egg", () ->
             new ForgeSpawnEggItem(ModEntities.JACKOSURPRISE, 0x7e9680, 0xc5d1c5,
                     new Item.Properties()));
+    public static final RegistryObject<Item> JACKOSURPRISE_HEAD = ITEMS.register("jackosurprise_head",
+            () -> new JackOLanternItem(new Item.Properties()));
 
 
     public static final RegistryObject<Item> MATTER_DETECTOR = ITEMS.register("matter_detector",

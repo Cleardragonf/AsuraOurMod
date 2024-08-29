@@ -60,6 +60,7 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModBlocks.END_STONE_MATTER_ORE.get());
 
                         pOutput.accept(ModItems.JACKOSURPRISE_EGG.get());
+                        pOutput.accept(ModItems.JACKOSURPRISE_HEAD.get());
                     })
                     .build());
 

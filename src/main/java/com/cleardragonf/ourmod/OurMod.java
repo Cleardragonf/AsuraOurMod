@@ -13,6 +13,7 @@ import com.cleardragonf.ourmod.sound.ModSounds;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -75,6 +76,7 @@ public class OurMod {
         public static void onClientSetup(FMLClientSetupEvent event){
             MenuScreens.register(ModMenuTypes.MATTER_CONVERSION_MENU.get(), MatterConversionScreen::new);
             EntityRenderers.register(ModEntities.JACKOSURPRISE.get(), JackOSurpriseRenderer::new);
+            EntityRenderers.register(ModEntities.PUMPKIN_PROJECTILE.get(), ThrownItemRenderer::new);
         }
     }
 
