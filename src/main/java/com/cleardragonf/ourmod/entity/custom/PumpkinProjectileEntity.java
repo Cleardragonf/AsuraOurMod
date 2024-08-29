@@ -2,6 +2,9 @@ package com.cleardragonf.ourmod.entity.custom;
 
 import com.cleardragonf.ourmod.entity.ModEntities;
 import com.cleardragonf.ourmod.item.ModItems;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -38,13 +41,21 @@ public class PumpkinProjectileEntity extends ThrowableItemProjectile {
                 Player player = (Player) pResult.getEntity();
                 ItemStack jackOLantern = new ItemStack(Items.JACK_O_LANTERN);
                 player.setItemSlot(EquipmentSlot.HEAD, jackOLantern);
+                DamageSource damageSource = this.damageSources().generic();
+                player.hurt(damageSource, 1f);
+                player.knockback(3, 2, 2);
+                SoundEvent cursed = SoundEvents.ALLAY_DEATH;
+                this.playSound(cursed, 3f, 1f);
             }
             if(pResult.getEntity() instanceof Mob){
                 Mob mob = (Mob) pResult.getEntity();
-                if(mob.getItemBySlot(EquipmentSlot.HEAD).isEmpty()){
                     ItemStack jackOLatern = new ItemStack(Items.JACK_O_LANTERN);
                     mob.setItemSlot(EquipmentSlot.HEAD, jackOLatern);
-                }
+                    DamageSource damageSource = this.damageSources().generic();
+                    mob.hurt(damageSource, 1f);
+                    mob.knockback(3, 0, 0);
+                    SoundEvent cursed = SoundEvents.ALLAY_DEATH;
+                    this.playSound(cursed, 3f, 1f);
             }
 
         }
