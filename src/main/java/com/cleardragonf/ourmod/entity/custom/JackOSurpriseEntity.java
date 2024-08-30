@@ -40,9 +40,17 @@ public class JackOSurpriseEntity extends Monster implements RangedAttackMob {
     private static final EntityDataAccessor<Boolean> ATTACKING =
             SynchedEntityData.defineId(JackOSurpriseEntity.class, EntityDataSerializers.BOOLEAN);
 
+    private static final EntityDataAccessor<Boolean> DIEING =
+            SynchedEntityData.defineId(JackOSurpriseEntity.class, EntityDataSerializers.BOOLEAN);
+
+
+
     // Animation States
     public final AnimationState idleAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
+
+    public final AnimationState deathAnimationState = new AnimationState();
+    private int deathAnimationTimeout = 0;
 
     public final AnimationState spawnAnimationState = new AnimationState();  // Correct animation state for spawn
     public int spawnAnimationTimeout = 0;
@@ -65,6 +73,7 @@ public class JackOSurpriseEntity extends Monster implements RangedAttackMob {
         super.defineSynchedData();
         this.entityData.define(SPAWNING, false);
         this.entityData.define(ATTACKING, false);
+        this.entityData.define(DIEING, false);
     }
 
     public void setAttacking(boolean attacking){
@@ -73,6 +82,14 @@ public class JackOSurpriseEntity extends Monster implements RangedAttackMob {
 
     public boolean isAttacking(){
         return this.entityData.get(ATTACKING);
+    }
+
+    public void setDieing(boolean dieing){
+        this.entityData.set(DIEING, dieing);
+    }
+
+    public boolean isDieing(){
+        return this.entityData.get(DIEING);
     }
 
     public void setSpawning(boolean spawning){
@@ -90,6 +107,16 @@ public class JackOSurpriseEntity extends Monster implements RangedAttackMob {
             this.idleAnimationState.start(this.tickCount);
         } else {
             --this.idleAnimationTimeout;
+        }
+
+        if(this.isDieing() && deathAnimationTimeout <= 0){
+            this.deathAnimationTimeout = 50;
+            this.deathAnimationState.start(this.tickCount);
+        }else{
+            --this.deathAnimationTimeout;
+        }
+        if(!this.isDieing()){
+            deathAnimationState.stop();
         }
 
         if(this.isAttacking() && attackAnimationTimeout <= 0){
@@ -126,6 +153,19 @@ public class JackOSurpriseEntity extends Monster implements RangedAttackMob {
     public void triggerSpawnAnimation() {
         if (this.level().isClientSide()) {
             this.spawnAnimationState.start(this.tickCount);
+        }
+    }
+
+    @Override
+    public void die(DamageSource pDamageSource) {
+        super.die(pDamageSource);
+        this.triggerDeathAnimation();
+        this.setDieing(true);
+    }
+
+    public void triggerDeathAnimation(){
+        if(this.level().isClientSide()){
+            this.deathAnimationState.start(this.tickCount);
         }
     }
 
