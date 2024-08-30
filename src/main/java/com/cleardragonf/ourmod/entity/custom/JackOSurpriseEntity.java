@@ -1,5 +1,6 @@
 package com.cleardragonf.ourmod.entity.custom;
 
+import com.cleardragonf.ourmod.entity.ai.JackOSurprisGoals.PlacePumpkinGoal;
 import com.cleardragonf.ourmod.entity.ai.JackOSurprisGoals.spawnGoals;
 import com.cleardragonf.ourmod.item.ModItems;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -145,6 +146,7 @@ public class JackOSurpriseEntity extends Monster implements RangedAttackMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(0, new PlacePumpkinGoal(this, 1D, 5, 100));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 2f));
         this.goalSelector.addGoal(0, new spawnGoals(this));
         this.goalSelector.addGoal(1, new RangedAttackGoal(this, 1.25D, 60, 10.0F));
