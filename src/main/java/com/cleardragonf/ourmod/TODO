@@ -13,9 +13,7 @@
 
     ###HALLOWEEN SPECIAL###
     •  Create a Jack 0' surprise
-        •  Maybe a weapon too.
         •  Add Death Animation to Entity
         •  Add Walking Animation to Entity
-        •  Add a planting AI that they'll try to place more pumpkins down...
-        •  Fix Entities orientation since it's attacking backwards! ti's probably also walking backwards
+        •  Fix Attack Animation TIming for thrown attack...it's a bit off.
     •  Create a spooky feel for Halloween.  Maybe make the sky red and play music throughout the server????
