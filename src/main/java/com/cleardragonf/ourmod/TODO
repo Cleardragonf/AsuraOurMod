@@ -17,7 +17,5 @@
         •  Add Death Animation to Entity
         •  Add Walking Animation to Entity
         •  Add a planting AI that they'll try to place more pumpkins down...
-        •  Instead of breaking...maybe have them spawn if a player gets close to the Pumpkin?
         •  Fix Entities orientation since it's attacking backwards! ti's probably also walking backwards
-        •  Make it so that it only happens when the configuration file on the Server is set to "halloween"
     •  Create a spooky feel for Halloween.  Maybe make the sky red and play music throughout the server????
