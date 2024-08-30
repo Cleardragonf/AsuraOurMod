@@ -17,7 +17,16 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<MatterConversionBlockEntity>> MATTER_CONVERSion_BE =
             BLOCK_ENTITIES.register("matter_conversion_be", () ->
                     BlockEntityType.Builder.of(MatterConversionBlockEntity::new,
-                            ModBlocks.MATTER_CONVERSION_BLOCK.get()).build(null));
+                            ModBlocks.MATTER_CONVERSION_BLOCK.get()).build(null)
+
+            );
+    public static final RegistryObject<BlockEntityType<MatterGeneratorEntity>> MATTER_GENERATOR_BE =
+            BLOCK_ENTITIES.register("matter_generator_be", () ->
+                    BlockEntityType.Builder.of(MatterGeneratorEntity::new,
+                            ModBlocks.MATTER_GENERATOR_BLOCK.get()).build(null)
+
+            );
+
 
     public static void register(IEventBus eventBus){
          BLOCK_ENTITIES.register(eventBus);

@@ -2,6 +2,7 @@ package com.cleardragonf.ourmod.block;
 
 import com.cleardragonf.ourmod.OurMod;
 import com.cleardragonf.ourmod.block.custom.MatterConversionBlock;
+import com.cleardragonf.ourmod.block.custom.MatterGeneratorBlock;
 import com.cleardragonf.ourmod.item.ModItems;
 import com.cleardragonf.ourmod.sound.ModSounds;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -31,6 +32,8 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> MATTER_CONVERSION_BLOCK = registerBlock("matter_conversion_block",
             () -> new MatterConversionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST))) ;
+    public static final RegistryObject<Block> MATTER_GENERATOR_BLOCK = registerBlock("matter_generator_block",
+            () -> new MatterGeneratorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST))) ;
 
 
     public static final RegistryObject<Block> MATTER_ORE = registerBlock("matter_ore",
