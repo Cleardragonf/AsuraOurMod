@@ -1,5 +1,7 @@
 package com.cleardragonf.ourmod.entity.custom;
 
+import com.cleardragonf.ourmod.entity.ai.JackOSurprisGoals.PlacePumpkinGoal;
+import com.cleardragonf.ourmod.entity.ai.JackOSurprisGoals.attackGoals;
 import com.cleardragonf.ourmod.entity.ai.JackOSurprisGoals.spawnGoals;
 import com.cleardragonf.ourmod.item.ModItems;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -185,14 +187,13 @@ public class JackOSurpriseEntity extends Monster implements RangedAttackMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(0, new PlacePumpkinGoal(this, 1D, 5, 100));
-        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 2f));
-        this.goalSelector.addGoal(0, new spawnGoals(this));
-//        this.goalSelector.addGoal(1, new RangedAttackGoal(this, 1D, 60, 10.0F));
-        this.goalSelector.addGoal(1, new attackGoals(this,0D,60,15));
-        this.goalSelector.addGoal(2, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-        this.goalSelector.addGoal(1, new WaterAvoidingRandomStrollGoal(this, 0.2D));
+        this.goalSelector.addGoal(1, new attackGoals(this,0D,60,6));
+        this.goalSelector.addGoal(2, new PlacePumpkinGoal(this, 1D, 5, 100));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 0.2D));
+        this.goalSelector.addGoal(4, new spawnGoals(this));
+
+        this.targetSelector.addGoal(0, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
 
     }
 
