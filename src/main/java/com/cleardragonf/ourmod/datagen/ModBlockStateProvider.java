@@ -31,6 +31,8 @@ public class ModBlockStateProvider extends BlockStateProvider  {
 
         simpleBlockWithItem( ModBlocks.MATTER_CONVERSION_BLOCK.get(),
                 new ModelFile.UncheckedModelFile(modLoc("block/matter_conversion_block")));
+        simpleBlockWithItem( ModBlocks.MATTER_GENERATOR_BLOCK.get(),
+                new ModelFile.UncheckedModelFile(modLoc("block/matter_generator_block")));
     }
 
     private void blockWithItem(RegistryObject<Block> blockRegistryObject){

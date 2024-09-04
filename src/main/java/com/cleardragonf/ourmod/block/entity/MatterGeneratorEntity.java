@@ -1,7 +1,7 @@
 package com.cleardragonf.ourmod.block.entity;
 
 import com.cleardragonf.ourmod.item.ModItems;
-import com.cleardragonf.ourmod.screens.MatterConversionMenu;
+import com.cleardragonf.ourmod.screens.MatterGeneratorMenu;
 import com.cleardragonf.ourmod.util.WaterManaStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -43,33 +43,6 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
         return this.waterMana;
     }
 
-    private final ContainerData containerData = new ContainerData() {
-        @Override
-        public int get(int pIndex) {
-            return switch (pIndex){
-                case 2 -> MatterGeneratorEntity.this.waterMana.getEnergyStored();
-                case 3 -> MatterGeneratorEntity.this.waterMana.getMaxEnergyStored();
-                case 4 -> MatterGeneratorEntity.this.burnTime;
-                case 5 -> MatterGeneratorEntity.this.maxBurnTime;
-                default -> throw new UnsupportedOperationException("unexpected");
-            };
-        }
-
-        @Override
-        public void set(int pIndex, int pValue) {
-            switch (pIndex){
-                case 2 -> MatterGeneratorEntity.this.waterMana.setEnergy(pValue);
-                case 4 -> MatterGeneratorEntity.this.burnTime = pValue;
-                case 5 -> MatterGeneratorEntity.this.maxBurnTime = maxBurnTime;
-            };
-        }
-
-        @Override
-        public int getCount() {
-            return 6;
-        }
-    };
-
     private final ItemStackHandler itemHandler = new ItemStackHandler(2);
 
     private static final int INPUT_SLOT = 0;
@@ -79,7 +52,7 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
 
     protected final ContainerData data;
     private int progress = 0;
-    private int maxProgress = 78;
+    private int maxProgress = 78; //somehow this is generating for the maxENERGYH STORAGE lol
 
     public MatterGeneratorEntity( BlockPos pos, BlockState blockState) {
         super(ModBlockEntities.MATTER_GENERATOR_BE.get(), pos, blockState);
@@ -89,7 +62,11 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
                 return switch(i){
                     case 0 -> MatterGeneratorEntity.this.progress;
                     case 1 -> MatterGeneratorEntity.this.maxProgress;
-                    default -> 0;
+                    case 2 -> MatterGeneratorEntity.this.waterMana.getEnergyStored();
+                    case 3 -> MatterGeneratorEntity.this.waterMana.getMaxEnergyStored();
+                    case 4 -> MatterGeneratorEntity.this.burnTime;
+                    case 5 -> MatterGeneratorEntity.this.maxBurnTime;
+                    default -> throw new UnsupportedOperationException("unexpected");
                 };
             }
 
@@ -98,12 +75,15 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
                 switch (i){
                     case 0 -> MatterGeneratorEntity.this.progress = value;
                     case 1 -> MatterGeneratorEntity.this.maxProgress = value;
+                    case 2 -> MatterGeneratorEntity.this.waterMana.setEnergy(value);
+                    case 4 -> MatterGeneratorEntity.this.burnTime = value;
+                    case 5 -> MatterGeneratorEntity.this.maxBurnTime = maxBurnTime;
                 }
             }
 
             @Override
             public int getCount() {
-                return 2;
+                return 6;
             }
         };
     }
@@ -148,19 +128,19 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
 
     @Override
     public Component getDisplayName() {
-        return Component.translatable("block.ourmod.matter_conversion_block");
+        return Component.translatable("block.ourmod.matter_generator_block");
     }
 
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
-        return new MatterConversionMenu(i, inventory, this, this.data);
+        return new MatterGeneratorMenu(i, inventory, this, this.data);
     }
 
     @Override
     protected void saveAdditional(CompoundTag tag) {
         tag.put("inventory", itemHandler.serializeNBT());
-        tag.putInt("matter_conversion.progress", progress);
+        tag.putInt("matter_generator.progress", progress);
         tag.put("Energy", this.waterMana.serializeNBT());
 
         super.saveAdditional(tag);
@@ -170,7 +150,7 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
     public void load(CompoundTag tag) {
         super.load(tag);
         itemHandler.deserializeNBT(tag.getCompound("inventory"));
-        progress = tag.getInt("matter_conversion.progress");
+        progress = tag.getInt("matter_generator.progress");
         if(tag.contains("Energy", CompoundTag.TAG_INT)){
             this.waterMana.deserializeNBT(tag.get("Energy"));
         }

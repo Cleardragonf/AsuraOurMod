@@ -5,6 +5,7 @@ import com.cleardragonf.ourmod.block.entity.ModBlockEntities;
 import com.cleardragonf.ourmod.item.ModCreativeModTabs;
 import com.cleardragonf.ourmod.item.ModItems;
 import com.cleardragonf.ourmod.screens.MatterConversionScreen;
+import com.cleardragonf.ourmod.screens.MatterGeneratorScreen;
 import com.cleardragonf.ourmod.screens.ModMenuTypes;
 import com.cleardragonf.ourmod.sound.ModSounds;
 import com.mojang.logging.LogUtils;
@@ -66,6 +67,7 @@ public class OurMod {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event){
             MenuScreens.register(ModMenuTypes.MATTER_CONVERSION_MENU.get(), MatterConversionScreen::new);
+            MenuScreens.register(ModMenuTypes.MATTER_GENERATOR_MENU.get(), MatterGeneratorScreen::new);
         }
     }
 

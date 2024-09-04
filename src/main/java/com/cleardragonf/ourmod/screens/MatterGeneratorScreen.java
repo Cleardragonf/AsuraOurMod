@@ -34,7 +34,26 @@ public class MatterGeneratorScreen extends AbstractContainerScreen<MatterGenerat
         guiGraphics.blit(TEXTURE, x, y, 0,0,imageWidth, imageHeight);
         renderProgressArrow(guiGraphics, x,y);
 
-        int energy =
+        int energyScaled = this.menu.getEnergyStoredScaled();
+
+        // AARRGGBB
+
+        // background
+        guiGraphics.fill(
+                this.leftPos + 115,
+                this.topPos + 20,
+                this.leftPos + 131,
+                this.topPos + 60,
+                0xFF555555);
+
+        // foreground
+        guiGraphics.fill(
+                this.leftPos + 116,
+                this.topPos + 21 + (38 - energyScaled),
+                this.leftPos + 130,
+                this.topPos + 59,
+                0xFFCC2222
+        );
     }
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
@@ -48,5 +67,13 @@ public class MatterGeneratorScreen extends AbstractContainerScreen<MatterGenerat
         renderBackground(pGuiGraphics);
         super.render(pGuiGraphics, pMouseX,  pMouseY, pPartialTick);
         renderTooltip(pGuiGraphics, pMouseX, pMouseY);
+
+        int energyStored = this.menu.getEnergy();
+        int maxEnergy = this.menu.getMaxEnergy();
+
+        Component text = Component.literal("Energy: " + energyStored + " / " + maxEnergy);
+        if(isHovering(115, 20, 16, 40, pMouseX, pMouseY)) {
+            pGuiGraphics.renderTooltip(this.font, text, pMouseX, pMouseY);
+        }
     }
 }

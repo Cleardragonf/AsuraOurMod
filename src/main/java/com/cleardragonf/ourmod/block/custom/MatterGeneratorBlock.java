@@ -69,7 +69,7 @@ public class MatterGeneratorBlock extends BaseEntityBlock {
             return null;
         }
 
-        return createTickerHelper(blockEntityType, ModBlockEntities.MATTER_CONVERSion_BE.get(),
+        return createTickerHelper(blockEntityType, ModBlockEntities.MATTER_GENERATOR_BE.get(),
                 (level1, blockPos, blockState, blockEntity) -> blockEntity.tick(level1, blockPos, blockState));
     }
 

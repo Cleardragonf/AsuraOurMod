@@ -126,14 +126,24 @@ public class MatterGeneratorMenu extends AbstractContainerMenu {
         }
     }
 
-    public int getWaterEnergy(){
+    public int getEnergy() {
         return this.data.get(2);
     }
 
-    public int getEnergyMaxEnergy(){
+    public int getMaxEnergy() {
         return this.data.get(3);
     }
 
+    public int getBurnTime() {
+        return this.data.get(4);
+    }
 
+    public int getMaxBurnTime() {
+        return this.data.get(5);
+    }
+
+    public int getEnergyStoredScaled() {
+        return (int) (((float) getEnergy() / (float) getMaxEnergy()) * 38);
+    }
 
 }

@@ -16,8 +16,8 @@ public class ModMenuTypes {
 
     public static final RegistryObject<MenuType<MatterConversionMenu>> MATTER_CONVERSION_MENU =
             registerMenuType("matter_conversion_menu", MatterConversionMenu::new);
-    public static final RegistryObject<MenuType<MatterConversionMenu>> MATTER_GENERATOR_MENU =
-            registerMenuType("matter_generator_menu", MatterConversionMenu::new);
+    public static final RegistryObject<MenuType<MatterGeneratorMenu>> MATTER_GENERATOR_MENU =
+            registerMenuType("matter_generator_menu", MatterGeneratorMenu::new);
 
 
     private static <T extends AbstractContainerMenu>RegistryObject<MenuType<T>> registerMenuType(String name, IContainerFactory<T> factory){
