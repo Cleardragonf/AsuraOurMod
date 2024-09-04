@@ -35,6 +35,7 @@ public class MatterGeneratorScreen extends AbstractContainerScreen<MatterGenerat
         renderProgressArrow(guiGraphics, x,y);
 
         int energyScaled = this.menu.getEnergyStoredScaled();
+        int fireEnergyScaled = this.menu.getFireManaScaled();
 
         // AARRGGBB
 
@@ -51,6 +52,23 @@ public class MatterGeneratorScreen extends AbstractContainerScreen<MatterGenerat
                 this.leftPos + 26,
                 this.topPos + 54 + (25 - energyScaled),
                 this.leftPos + 41,
+                this.topPos + 79,
+                0xFFCC2222
+        );
+
+        // Fire's background
+        guiGraphics.fill(
+                this.leftPos + 43,
+                this.topPos + 53,
+                this.leftPos + 60,
+                this.topPos + 79,
+                0xFF555555);
+
+        // Fire's foreground
+        guiGraphics.fill(
+                this.leftPos + 44,
+                this.topPos + 54 + (25 - fireEnergyScaled),
+                this.leftPos + 59,
                 this.topPos + 79,
                 0xFFCC2222
         );
@@ -71,9 +89,16 @@ public class MatterGeneratorScreen extends AbstractContainerScreen<MatterGenerat
         int energyStored = this.menu.getEnergy();
         int maxEnergy = this.menu.getMaxEnergy();
 
-        Component text = Component.literal("Energy: " + energyStored + " / " + maxEnergy);
+        int fireManaStored = this.menu.getFireMana();
+        int maxFireMana = this.menu.getMaxFireMana();
+
+        Component text = Component.literal("Water Mana: " + energyStored + " / " + maxEnergy);
         if(isHovering(26, 54, 16, 25, pMouseX, pMouseY)) {
             pGuiGraphics.renderTooltip(this.font, text, pMouseX, pMouseY);
+        }
+        Component fireText = Component.literal("Fire Mana: " + fireManaStored + " / " + maxFireMana);
+        if(isHovering(44, 54, 16, 25, pMouseX, pMouseY)) {
+            pGuiGraphics.renderTooltip(this.font, fireText, pMouseX, pMouseY);
         }
     }
 }

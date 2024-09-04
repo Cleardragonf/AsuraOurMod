@@ -2,6 +2,7 @@ package com.cleardragonf.ourmod.block.entity;
 
 import com.cleardragonf.ourmod.item.ModItems;
 import com.cleardragonf.ourmod.screens.MatterGeneratorMenu;
+import com.cleardragonf.ourmod.util.FireManaStorage;
 import com.cleardragonf.ourmod.util.WaterManaStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -29,14 +30,25 @@ import org.jetbrains.annotations.Nullable;
 public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
 
     private final WaterManaStorage waterMana = new WaterManaStorage(10000, 0, 100, 0);
-    private final LazyOptional<WaterManaStorage> energyOptional = LazyOptional.of(() ->this.waterMana);
-
-    public LazyOptional<WaterManaStorage> getEnergyOptional(){
-        return this.energyOptional;
+    private final LazyOptional<WaterManaStorage> waterManaOptional = LazyOptional.of(() ->this.waterMana);
+    public LazyOptional<WaterManaStorage> getWaterManaOptional(){
+        return this.waterManaOptional;
     }
-    public WaterManaStorage getEnergy(){
+    public WaterManaStorage getWaterMana(){
         return this.waterMana;
     }
+
+    private final FireManaStorage fireMana = new FireManaStorage(10000, 0, 100, 0);
+    private final LazyOptional<FireManaStorage> fireManaOptional = LazyOptional.of(() ->this.fireMana);
+    public LazyOptional<FireManaStorage> getFireManaOptional(){
+        return this.fireManaOptional;
+    }
+    public FireManaStorage getFireMana(){
+        return this.fireMana;
+    }
+
+
+
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(7);
 
@@ -67,6 +79,8 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
                     case 3 -> MatterGeneratorEntity.this.waterMana.getMaxEnergyStored();
                     case 4 -> MatterGeneratorEntity.this.burnTime;
                     case 5 -> MatterGeneratorEntity.this.maxBurnTime;
+                    case 6 -> MatterGeneratorEntity.this.fireMana.getEnergyStored();
+                    case 7 -> MatterGeneratorEntity.this.fireMana.getMaxEnergyStored();
                     default -> throw new UnsupportedOperationException("unexpected");
                 };
             }
@@ -79,12 +93,13 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
                     case 2 -> MatterGeneratorEntity.this.waterMana.setEnergy(value);
                     case 4 -> MatterGeneratorEntity.this.burnTime = value;
                     case 5 -> MatterGeneratorEntity.this.maxBurnTime = maxBurnTime;
+                    case 6 -> MatterGeneratorEntity.this.fireMana.setEnergy(value);
                 }
             }
 
             @Override
             public int getCount() {
-                return 6;
+                return 8;
             }
         };
     }
@@ -94,7 +109,7 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
         if(cap == ForgeCapabilities.ITEM_HANDLER){
             return lazyItemHandler.cast();
         }else if(cap == ForgeCapabilities.ENERGY){
-            return this.energyOptional.cast();
+            return this.waterManaOptional.cast();
         }else{
             return super.getCapability(cap, side);
         }
@@ -136,6 +151,7 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
         tag.put("inventory", itemHandler.serializeNBT());
         tag.putInt("matter_generator.progress", progress);
         tag.put("WaterEnergy", this.waterMana.serializeNBT());
+        tag.put("FireEnergy", this.fireMana.serializeNBT());
 
         super.saveAdditional(tag);
     }
@@ -148,6 +164,9 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
         if(tag.contains("WaterEnergy", CompoundTag.TAG_INT)){
             this.waterMana.deserializeNBT(tag.get("WaterEnergy"));
         }
+        if(tag.contains("FireEnergy", CompoundTag.TAG_INT)){
+            this.fireMana.deserializeNBT(tag.get("FireEnergy"));
+        }
     }
 
     private int burnTime = 0, maxBurnTime = 0;
@@ -155,21 +174,36 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
     public void tick(Level level1, BlockPos blockPos, BlockState blockState) {
         if(this.level == null || this.level.isClientSide())
             return;
-        if(this.waterMana.getEnergyStored()< this.waterMana.getMaxEnergyStored()){
-            if(hasRecipe(WATER_INPUT_SLOT)){
-                increaseGatheringProgress();
-                setChanged(level1, blockPos, blockState);
 
-                if(hasGatheringFinished()){
-                    craftItem(WATER_INPUT_SLOT);
-                    resetGathering();
+        // Iterate through each input slot and process if it has a recipe
+        for (int slot = 0; slot < itemHandler.getSlots(); slot++) {
+            if (hasRecipe(slot)) {
+                // Ensure the respective mana storage has enough capacity to store the generated energy
+                if (canStoreEnergy(slot)) {
+                    increaseGatheringProgress();
+                    setChanged(level1, blockPos, blockState);
+
+                    if (hasGatheringFinished()) {
+                        craftItem(slot);
+                        resetGathering();
+                    }
                 }
-            }else{
-                resetGathering();
             }
-
         }
     }
+
+    // Checks if the respective mana storage has enough capacity to store energy
+    private boolean canStoreEnergy(int slot) {
+        return switch (slot) {
+            case WATER_INPUT_SLOT -> this.waterMana.getEnergyStored() < this.waterMana.getMaxEnergyStored();
+            case FIRE_INPUT_SLOT -> this.fireMana.getEnergyStored() < this.fireMana.getMaxEnergyStored();
+            // Add other slots (EARTH, WIND, DARKNESS, LIGHT, VOID) and their respective mana storages here
+            default -> false;
+        };
+    }
+
+// Other methods remain the same
+
 
     private void resetGathering() {
         progress = 0;
@@ -181,6 +215,9 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
         switch (slot){
             case WATER_INPUT_SLOT -> {
                 this.waterMana.addEnergy(getEnergyQuantity(slot));
+            }
+            case FIRE_INPUT_SLOT -> {
+                this.fireMana.addEnergy(getEnergyQuantity(slot));
             }
         }
     }

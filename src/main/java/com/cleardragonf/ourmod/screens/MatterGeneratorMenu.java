@@ -19,7 +19,7 @@ public class MatterGeneratorMenu extends AbstractContainerMenu {
 
     //Client Constructor
     public MatterGeneratorMenu(int containerId, Inventory inv, FriendlyByteBuf extraData){
-        this(containerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(7));
+        this(containerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(8));
     }
 
     //Server Constructor
@@ -132,8 +132,16 @@ public class MatterGeneratorMenu extends AbstractContainerMenu {
         return this.data.get(2);
     }
 
+    public int getFireMana(){
+        return this.data.get(6);
+    }
+
     public int getMaxEnergy() {
         return this.data.get(3);
+    }
+
+    public int getMaxFireMana() {
+        return this.data.get(7);
     }
 
     public int getBurnTime() {
@@ -146,6 +154,10 @@ public class MatterGeneratorMenu extends AbstractContainerMenu {
 
     public int getEnergyStoredScaled() {
         return (int) (((float) getEnergy() / (float) getMaxEnergy()) * 25);
+    }
+
+    public int getFireManaScaled(){
+        return (int) (((float) getFireMana() / (float) getMaxFireMana()) * 25);
     }
 
 }
