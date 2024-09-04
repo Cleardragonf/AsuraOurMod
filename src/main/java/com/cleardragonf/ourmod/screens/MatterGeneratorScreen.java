@@ -40,25 +40,25 @@ public class MatterGeneratorScreen extends AbstractContainerScreen<MatterGenerat
 
         // background
         guiGraphics.fill(
-                this.leftPos + 115,
-                this.topPos + 20,
-                this.leftPos + 131,
-                this.topPos + 60,
+                this.leftPos + 25,
+                this.topPos + 53,
+                this.leftPos + 42,
+                this.topPos + 79,
                 0xFF555555);
 
         // foreground
         guiGraphics.fill(
-                this.leftPos + 116,
-                this.topPos + 21 + (38 - energyScaled),
-                this.leftPos + 130,
-                this.topPos + 59,
+                this.leftPos + 26,
+                this.topPos + 54 + (25 - energyScaled),
+                this.leftPos + 41,
+                this.topPos + 79,
                 0xFFCC2222
         );
     }
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
         if(menu.isCrafting()) {
-            guiGraphics.blit(TEXTURE, x + 85, y + 30, 176, 0, 8, menu.getScaledProgress());
+            guiGraphics.blit(TEXTURE, x + 161, y + 30, 176, 0, 8, menu.getScaledProgress());
         }
     }
 
@@ -72,7 +72,7 @@ public class MatterGeneratorScreen extends AbstractContainerScreen<MatterGenerat
         int maxEnergy = this.menu.getMaxEnergy();
 
         Component text = Component.literal("Energy: " + energyStored + " / " + maxEnergy);
-        if(isHovering(115, 20, 16, 40, pMouseX, pMouseY)) {
+        if(isHovering(26, 54, 16, 25, pMouseX, pMouseY)) {
             pGuiGraphics.renderTooltip(this.font, text, pMouseX, pMouseY);
         }
     }

@@ -15,14 +15,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -43,10 +38,16 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
         return this.waterMana;
     }
 
-    private final ItemStackHandler itemHandler = new ItemStackHandler(2);
+    private final ItemStackHandler itemHandler = new ItemStackHandler(7);
 
-    private static final int INPUT_SLOT = 0;
-    private static final int OUTPUT_SLOT = 1;
+    private static final int FIRE_INPUT_SLOT = 0;
+    private static final int WATER_INPUT_SLOT = 1;
+    private static final int EARTH_INPUT_SLOT = 2;
+    private static final int WIND_INPUT_SLOT = 3;
+    private static final int DARKNESS_INPUT_SLOT = 4;
+    private static final int LIGHT_INPUT_SLOT = 5;
+    private static final int VOID_INPUT_SLOT = 6;
+
 
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
 
@@ -86,13 +87,6 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
                 return 6;
             }
         };
-    }
-
-    private void sendUpdate(){
-        setChanged();
-        if(this.level != null){
-            this.level.sendBlockUpdated(this.worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
-        }
     }
 
     @Override
@@ -141,7 +135,7 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
     protected void saveAdditional(CompoundTag tag) {
         tag.put("inventory", itemHandler.serializeNBT());
         tag.putInt("matter_generator.progress", progress);
-        tag.put("Energy", this.waterMana.serializeNBT());
+        tag.put("WaterEnergy", this.waterMana.serializeNBT());
 
         super.saveAdditional(tag);
     }
@@ -151,8 +145,8 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
         super.load(tag);
         itemHandler.deserializeNBT(tag.getCompound("inventory"));
         progress = tag.getInt("matter_generator.progress");
-        if(tag.contains("Energy", CompoundTag.TAG_INT)){
-            this.waterMana.deserializeNBT(tag.get("Energy"));
+        if(tag.contains("WaterEnergy", CompoundTag.TAG_INT)){
+            this.waterMana.deserializeNBT(tag.get("WaterEnergy"));
         }
     }
 
@@ -162,12 +156,12 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
         if(this.level == null || this.level.isClientSide())
             return;
         if(this.waterMana.getEnergyStored()< this.waterMana.getMaxEnergyStored()){
-            if(hasRecipe()){
+            if(hasRecipe(WATER_INPUT_SLOT)){
                 increaseGatheringProgress();
                 setChanged(level1, blockPos, blockState);
 
                 if(hasGatheringFinished()){
-                    craftItem();
+                    craftItem(WATER_INPUT_SLOT);
                     resetGathering();
                 }
             }else{
@@ -175,30 +169,24 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
             }
 
         }
-
-
-
-    }
-
-    public int getBurnTime(ItemStack stack){
-        return ForgeHooks.getBurnTime(stack, RecipeType.SMELTING);
-    }
-
-    public boolean canBurn(ItemStack stack) {
-        return getBurnTime(stack) > 0;
     }
 
     private void resetGathering() {
         progress = 0;
     }
 
-    private void craftItem() {
-        this.itemHandler.extractItem(INPUT_SLOT, 1, false);
-        this.waterMana.addEnergy(getEnergyQuantity());
+    private void craftItem(int slot) {
+        this.itemHandler.extractItem(slot, 1, false);
+
+        switch (slot){
+            case WATER_INPUT_SLOT -> {
+                this.waterMana.addEnergy(getEnergyQuantity(slot));
+            }
+        }
     }
 
-    private int getEnergyQuantity() {
-        Item inputItem = this.itemHandler.getStackInSlot(INPUT_SLOT).getItem();
+    private int getEnergyQuantity(int slot) {
+        Item inputItem = this.itemHandler.getStackInSlot(slot).getItem();
 
         if(inputItem == ModItems.RAW_MATTER.get()){
             return 100;
@@ -234,40 +222,63 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
         progress++;
     }
 
-    private boolean hasRecipe() {
-        Item inputItem = this.itemHandler.getStackInSlot(INPUT_SLOT).getItem();
+    private boolean hasRecipe(int slot) {
+        Item inputItem = this.itemHandler.getStackInSlot(slot).getItem();
 
-        if(inputItem == ModItems.RAW_MATTER.get()){
-            return true;
-        }
-        else if(inputItem == ModItems.RAW_EARTH_MATTER.get()){
-            return true;
-        }
-        else if(inputItem == ModItems.RAW_FIRE_MATTER.get()){
-            return true;
-        }
-        else if(inputItem == ModItems.RAW_WATER_MATTER.get()){
-            return true;
-        }
-        else if(inputItem == ModItems.RAW_WIND_MATTER.get()){
-            return true;
-        }
-        else if(inputItem == ModItems.RAW_DARKNESS_MATTER.get()){
-            return true;
-        }
-        else if(inputItem == ModItems.RAW_LIGHT_MATTER.get()){
-            return true;
-        }else{
-            return false;
+        switch (slot){
+            case WATER_INPUT_SLOT -> {
+                if(inputItem == ModItems.RAW_WATER_MATTER.get() || inputItem == ModItems.PURIFIED_WATER_MATTER.get()){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+            case FIRE_INPUT_SLOT -> {
+                if(inputItem == ModItems.RAW_FIRE_MATTER.get() || inputItem == ModItems.PURIFIED_FIRE_MATTER.get()){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+            case WIND_INPUT_SLOT -> {
+                if(inputItem == ModItems.RAW_WIND_MATTER.get() || inputItem == ModItems.PURIFIED_WIND_MATTER.get()){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+            case EARTH_INPUT_SLOT -> {
+                if(inputItem == ModItems.RAW_EARTH_MATTER.get() || inputItem == ModItems.PURIFIED_EARTH_MATTER.get()){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+            case DARKNESS_INPUT_SLOT -> {
+                if(inputItem == ModItems.RAW_DARKNESS_MATTER.get() || inputItem == ModItems.PURIFIED_DARKNESS_MATTER.get()){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+            case LIGHT_INPUT_SLOT -> {
+                if(inputItem == ModItems.RAW_LIGHT_MATTER.get() || inputItem == ModItems.PURIFIED_LIGHT_MATTER.get()){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+            case VOID_INPUT_SLOT -> {
+                if(inputItem == ModItems.RAW_MATTER.get() || inputItem == ModItems.CONDENSED_MATTER.get()){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+            default -> {
+                return false;
+            }
         }
     }
-
-    private boolean canInsertItemIntoOutputSlot(Item item) {
-        return this.itemHandler.getStackInSlot(OUTPUT_SLOT).isEmpty() || this.itemHandler.getStackInSlot(OUTPUT_SLOT).is(item);
-    }
-
-    private boolean canInsertAmountIntoOutputSlot(int count) {
-        return this.itemHandler.getStackInSlot(OUTPUT_SLOT).getCount() + count <= this.itemHandler.getStackInSlot(OUTPUT_SLOT).getMaxStackSize();
-    }
-
 }

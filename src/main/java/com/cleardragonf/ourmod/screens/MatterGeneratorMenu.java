@@ -19,13 +19,13 @@ public class MatterGeneratorMenu extends AbstractContainerMenu {
 
     //Client Constructor
     public MatterGeneratorMenu(int containerId, Inventory inv, FriendlyByteBuf extraData){
-        this(containerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(6));
+        this(containerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(7));
     }
 
     //Server Constructor
     public MatterGeneratorMenu(int containerId, Inventory inv, BlockEntity entity, ContainerData data){
         super(ModMenuTypes.MATTER_GENERATOR_MENU.get(), containerId);
-        checkContainerSize(inv, 2);
+        checkContainerSize(inv, 7);
         blockEntity = ((MatterGeneratorEntity) entity);
         this.level = inv.player.level();
         this.data = data;
@@ -34,12 +34,14 @@ public class MatterGeneratorMenu extends AbstractContainerMenu {
         addPlayerHotbar(inv);
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(iItemHandler -> {
-            this.addSlot(new SlotItemHandler(iItemHandler, 0, 80, 11));
-            this.addSlot(new SlotItemHandler(iItemHandler, 1, 80, 59));
+            this.addSlot(new SlotItemHandler(iItemHandler, 0, 26, 11));
+            this.addSlot(new SlotItemHandler(iItemHandler, 1, 62, 11));
+            this.addSlot(new SlotItemHandler(iItemHandler, 2, 98, 11));
+            this.addSlot(new SlotItemHandler(iItemHandler, 3, 134, 11));
+            this.addSlot(new SlotItemHandler(iItemHandler, 4, 44, 29));
+            this.addSlot(new SlotItemHandler(iItemHandler, 5, 80, 29));
+            this.addSlot(new SlotItemHandler(iItemHandler, 6, 116, 29));
         });
-
-        addDataSlots(data);
-
         addDataSlots(data);
     }
 
@@ -71,7 +73,7 @@ public class MatterGeneratorMenu extends AbstractContainerMenu {
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
     // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 2;  // must be the number of slots you have!
+    private static final int TE_INVENTORY_SLOT_COUNT = 7;  // must be the number of slots you have!
     @Override
     public ItemStack quickMoveStack(Player playerIn, int pIndex) {
         Slot sourceSlot = slots.get(pIndex);
@@ -143,7 +145,7 @@ public class MatterGeneratorMenu extends AbstractContainerMenu {
     }
 
     public int getEnergyStoredScaled() {
-        return (int) (((float) getEnergy() / (float) getMaxEnergy()) * 38);
+        return (int) (((float) getEnergy() / (float) getMaxEnergy()) * 25);
     }
 
 }
