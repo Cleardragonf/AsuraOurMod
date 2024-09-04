@@ -27,7 +27,7 @@ public class WaterManaStorage extends EnergyStorage {
     }
 
     public void addEnergy(int energy){
-        setEnergy(this.energy + 1);
+        setEnergy(this.energy + energy);
     }
 
     public void removeEnergy(int energy) {

@@ -162,32 +162,22 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
         if(this.level == null || this.level.isClientSide())
             return;
         if(this.waterMana.getEnergyStored()< this.waterMana.getMaxEnergyStored()){
-            if(this.burnTime <= 0){
-                if(canBurn(this.itemHandler.getStackInSlot(INPUT_SLOT))){
-                    this.burnTime = this.maxBurnTime = getBurnTime(this.itemHandler.getStackInSlot(INPUT_SLOT));
-                    this.itemHandler.getStackInSlot(INPUT_SLOT).shrink(1);
-                    sendUpdate();
-                }else{
-                    this.burnTime--;
-                    this.waterMana.addEnergy(1);
-                    sendUpdate();
+            if(hasRecipe()){
+                increaseGatheringProgress();
+                setChanged(level1, blockPos, blockState);
+
+                if(hasGatheringFinished()){
+                    craftItem();
+                    resetGathering();
                 }
-            }
-
-        }
-
-
-        if(hasRecipe()){
-            increaseGatheringProgress();
-            setChanged(level1, blockPos, blockState);
-
-            if(hasGatheringFinished()){
-                craftItem();
+            }else{
                 resetGathering();
             }
-        }else{
-            resetGathering();
+
         }
+
+
+
     }
 
     public int getBurnTime(ItemStack stack){
@@ -203,11 +193,36 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
     }
 
     private void craftItem() {
-        ItemStack result = new ItemStack(ModItems.CONDENSED_MATTER.get(), 1);
         this.itemHandler.extractItem(INPUT_SLOT, 1, false);
+        this.waterMana.addEnergy(getEnergyQuantity());
+    }
 
-        this.itemHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(result.getItem(),
-                this.itemHandler.getStackInSlot(OUTPUT_SLOT).getCount() + result.getCount()));
+    private int getEnergyQuantity() {
+        Item inputItem = this.itemHandler.getStackInSlot(INPUT_SLOT).getItem();
+
+        if(inputItem == ModItems.RAW_MATTER.get()){
+            return 100;
+        }
+        else if(inputItem == ModItems.RAW_EARTH_MATTER.get()){
+            return 100;
+        }
+        else if(inputItem == ModItems.RAW_FIRE_MATTER.get()){
+            return 100;
+        }
+        else if(inputItem == ModItems.RAW_WATER_MATTER.get()){
+            return 100;
+        }
+        else if(inputItem == ModItems.RAW_WIND_MATTER.get()){
+            return 100;
+        }
+        else if(inputItem == ModItems.RAW_DARKNESS_MATTER.get()){
+            return 100;
+        }
+        else if(inputItem == ModItems.RAW_LIGHT_MATTER.get()){
+            return 100;
+        }else{
+            return 0;
+        }
     }
 
     private boolean hasGatheringFinished() {
@@ -223,33 +238,25 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
         Item inputItem = this.itemHandler.getStackInSlot(INPUT_SLOT).getItem();
 
         if(inputItem == ModItems.RAW_MATTER.get()){
-            ItemStack result = new ItemStack(ModItems.CONDENSED_MATTER.get());
-            return true && canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
-
+            return true;
         }
         else if(inputItem == ModItems.RAW_EARTH_MATTER.get()){
-            ItemStack result = new ItemStack(ModItems.PURIFIED_EARTH_MATTER.get());
-            return true && canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
+            return true;
         }
         else if(inputItem == ModItems.RAW_FIRE_MATTER.get()){
-            ItemStack result = new ItemStack(ModItems.PURIFIED_FIRE_MATTER.get());
-            return true && canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
+            return true;
         }
         else if(inputItem == ModItems.RAW_WATER_MATTER.get()){
-            ItemStack result = new ItemStack(ModItems.PURIFIED_WATER_MATTER.get());
-            return true && canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
+            return true;
         }
         else if(inputItem == ModItems.RAW_WIND_MATTER.get()){
-            ItemStack result = new ItemStack(ModItems.PURIFIED_WIND_MATTER.get());
-            return true && canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
+            return true;
         }
         else if(inputItem == ModItems.RAW_DARKNESS_MATTER.get()){
-            ItemStack result = new ItemStack(ModItems.PURIFIED_DARKNESS_MATTER.get());
-            return true && canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
+            return true;
         }
         else if(inputItem == ModItems.RAW_LIGHT_MATTER.get()){
-            ItemStack result = new ItemStack(ModItems.PURIFIED_LIGHT_MATTER.get());
-            return true && canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
+            return true;
         }else{
             return false;
         }
