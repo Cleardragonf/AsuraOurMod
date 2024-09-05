@@ -1,9 +1,6 @@
 ###Major Effects###
  •  ADD Block Capability for EMC or somesuch
  •  ADD Will need a block that collects EMC
- •  ADD Block that will take the custom Purified Matter and covert it into mana
-    •  the Mana will be broken down into the Elements of Earth, Fire, Water, Wind, Darkness and Light and Neutral
-    •  MANA will be This mod's Energy.
  •  ADD Block that will convert Mana to FE for Compatibility
     •  It'll pool ALL Energy into a grouping called 'MANA' and convert it at 100:1 Ratio
  •  ADD will need to build a MultiBlock Structure

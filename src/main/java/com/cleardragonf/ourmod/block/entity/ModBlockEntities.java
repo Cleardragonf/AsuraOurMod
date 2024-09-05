@@ -26,6 +26,12 @@ public class ModBlockEntities {
                             ModBlocks.MATTER_GENERATOR_BLOCK.get()).build(null)
 
             );
+    public static final RegistryObject<BlockEntityType<MatterCollectionEntity>> MATTER_COLLECTION_BE =
+            BLOCK_ENTITIES.register("matter_collection_be", () ->
+                    BlockEntityType.Builder.of(MatterCollectionEntity::new,
+                            ModBlocks.MATTER_COLLECTION_BLOCK.get()).build(null)
+
+            );
 
 
     public static void register(IEventBus eventBus){
