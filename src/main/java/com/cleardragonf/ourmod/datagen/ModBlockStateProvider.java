@@ -7,6 +7,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModBlockStateProvider extends BlockStateProvider  {
@@ -35,6 +36,8 @@ public class ModBlockStateProvider extends BlockStateProvider  {
                 new ModelFile.UncheckedModelFile(modLoc("block/matter_generator_block")));
         simpleBlockWithItem( ModBlocks.MATTER_COLLECTION_BLOCK.get(),
                 new ModelFile.UncheckedModelFile(modLoc("block/matter_collection_block")));
+        simpleBlockWithItem(ModBlocks.MANA_BATTERY_BLOCK.get(),
+                new ModelFile.UncheckedModelFile(modLoc("block/mana_battery_block")));
     }
 
     private void blockWithItem(RegistryObject<Block> blockRegistryObject){

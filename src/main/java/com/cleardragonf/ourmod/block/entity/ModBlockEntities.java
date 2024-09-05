@@ -32,6 +32,12 @@ public class ModBlockEntities {
                             ModBlocks.MATTER_COLLECTION_BLOCK.get()).build(null)
 
             );
+    public static final RegistryObject<BlockEntityType<ManaBatteryEntity>> MANA_BATTERY_BE =
+            BLOCK_ENTITIES.register("mana_battery_be", () ->
+                    BlockEntityType.Builder.of(ManaBatteryEntity::new,
+                            ModBlocks.MANA_BATTERY_BLOCK.get()).build(null)
+
+            );
 
 
     public static void register(IEventBus eventBus){

@@ -32,6 +32,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.MATTER_CONVERSION_BLOCK.get());
         this.dropSelf(ModBlocks.MATTER_GENERATOR_BLOCK.get());
         this.dropSelf(ModBlocks.MATTER_COLLECTION_BLOCK.get());
+        this.dropSelf(ModBlocks.MANA_BATTERY_BLOCK.get());
 
         this.add(ModBlocks.MATTER_ORE.get(),
                 block -> createMatterOreDrops(ModBlocks.MATTER_ORE.get(), ModItems.RAW_MATTER.get()));

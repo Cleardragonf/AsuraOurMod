@@ -1,6 +1,7 @@
 package com.cleardragonf.ourmod.block;
 
 import com.cleardragonf.ourmod.OurMod;
+import com.cleardragonf.ourmod.block.custom.ManaBatterBlock;
 import com.cleardragonf.ourmod.block.custom.MatterCollectionBlock;
 import com.cleardragonf.ourmod.block.custom.MatterConversionBlock;
 import com.cleardragonf.ourmod.block.custom.MatterGeneratorBlock;
@@ -37,6 +38,8 @@ public class ModBlocks {
             () -> new MatterGeneratorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST))) ;
     public static final RegistryObject<Block> MATTER_COLLECTION_BLOCK = registerBlock("matter_collection_block",
             () -> new MatterCollectionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST))) ;
+    public static final RegistryObject<Block> MANA_BATTERY_BLOCK = registerBlock("mana_battery_block",
+            () -> new ManaBatterBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST))) ;
 
 
     public static final RegistryObject<Block> MATTER_ORE = registerBlock("matter_ore",

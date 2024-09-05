@@ -20,6 +20,8 @@ public class ModMenuTypes {
             registerMenuType("matter_generator_menu", MatterGeneratorMenu::new);
     public static final RegistryObject<MenuType<MatterCollectionMenu>> MATTER_COLLECTION_MENU =
             registerMenuType("matter_collection_menu", MatterCollectionMenu::new);
+    public static final RegistryObject<MenuType<ManaBatteryMenu>> MANA_BATTERY_MENU =
+            registerMenuType("mana_battery_menu", ManaBatteryMenu::new);
 
 
     private static <T extends AbstractContainerMenu>RegistryObject<MenuType<T>> registerMenuType(String name, IContainerFactory<T> factory){
