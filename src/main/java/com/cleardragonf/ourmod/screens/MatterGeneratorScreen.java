@@ -13,6 +13,12 @@ public class MatterGeneratorScreen extends AbstractContainerScreen<MatterGenerat
 
     private static final ResourceLocation TEXTURE =
             new ResourceLocation(OurMod.MODID, "textures/gui/matter_generator_gui.png");
+
+    private static final int BACKGROUND_COLOR = 0xFF555555;
+    private static final int FOREGROUND_COLOR = 0xFFCC2222;
+    private static final int BAR_WIDTH = 17;
+    private static final int BAR_HEIGHT = 27;
+
     public MatterGeneratorScreen(MatterGeneratorMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
     }
@@ -26,56 +32,57 @@ public class MatterGeneratorScreen extends AbstractContainerScreen<MatterGenerat
 
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float v, int i, int i1) {
+        renderBackground(guiGraphics, v, i, i1);
+        renderEnergyBars(guiGraphics);
+    }
+
+    private void renderBackground(GuiGraphics guiGraphics, float v, int i, int i1) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1.0f,1.0f,1.0f,1.0f);
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.setShaderTexture(0, TEXTURE);
-        int x = (width - imageWidth) /2;
-        int y = (height - imageHeight) /2;
-        guiGraphics.blit(TEXTURE, x, y, 0,0,imageWidth, imageHeight);
-        renderProgressArrow(guiGraphics, x,y);
+        int x = (width - imageWidth) / 2;
+        int y = (height - imageHeight) / 2;
+        guiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
+        renderProgressArrow(guiGraphics, x, y);
+    }
 
-        int energyScaled = this.menu.getEnergyStoredScaled();
-        int fireEnergyScaled = this.menu.getFireManaScaled();
+    private void renderEnergyBars(GuiGraphics guiGraphics) {
+        int[] energyScales = {
+                this.menu.getFireManaScaled(),
+                this.menu.getLightManaScaled(),
+                this.menu.getEnergyStoredScaled(),
+                this.menu.getVoidManaScaled(),
+                this.menu.getWindManaScaled(),
+                this.menu.getDarkManaScaled(),
+                this.menu.getEarthManaScaled()
+        };
 
-        // AARRGGBB
+        int[][] barPositions = {
+                {25, 53}, {43, 53}, {61, 53},
+                {79, 53}, {97, 53}, {115, 53}, {133, 53}
+        };
 
-        // background
-        guiGraphics.fill(
-                this.leftPos + 25,
-                this.topPos + 53,
-                this.leftPos + 42,
-                this.topPos + 79,
-                0xFF555555);
+        for (int i = 0; i < barPositions.length; i++) {
+            int xPos = barPositions[i][0];
+            int yPos = barPositions[i][1];
 
-        // foreground
-        guiGraphics.fill(
-                this.leftPos + 26,
-                this.topPos + 54 + (25 - energyScaled),
-                this.leftPos + 41,
-                this.topPos + 79,
-                0xFFCC2222
-        );
+            renderEnergyBar(guiGraphics, xPos, yPos, energyScales[i]);
+        }
+    }
 
-        // Fire's background
-        guiGraphics.fill(
-                this.leftPos + 43,
-                this.topPos + 53,
-                this.leftPos + 60,
-                this.topPos + 79,
-                0xFF555555);
+    private void renderEnergyBar(GuiGraphics guiGraphics, int xPos, int yPos, int energyScaled) {
+        // Background
+        guiGraphics.fill(leftPos + xPos, topPos + yPos, leftPos + xPos + BAR_WIDTH, topPos + yPos + BAR_HEIGHT, BACKGROUND_COLOR);
 
-        // Fire's foreground
-        guiGraphics.fill(
-                this.leftPos + 44,
-                this.topPos + 54 + (25 - fireEnergyScaled),
-                this.leftPos + 59,
-                this.topPos + 79,
-                0xFFCC2222
-        );
+        // Foreground
+        guiGraphics.fill(leftPos + xPos + 1, topPos + yPos + 1 + (25 - energyScaled), leftPos + xPos + BAR_WIDTH - 1, topPos + yPos + BAR_HEIGHT, FOREGROUND_COLOR);
+
+        // Measurement
+        guiGraphics.blit(TEXTURE, leftPos + xPos, topPos + yPos, 177, 31, BAR_WIDTH, BAR_HEIGHT);
     }
 
     private void renderProgressArrow(GuiGraphics guiGraphics, int x, int y) {
-        if(menu.isCrafting()) {
+        if (menu.isCrafting()) {
             guiGraphics.blit(TEXTURE, x + 161, y + 30, 176, 0, 8, menu.getScaledProgress());
         }
     }
@@ -83,22 +90,38 @@ public class MatterGeneratorScreen extends AbstractContainerScreen<MatterGenerat
     @Override
     public void render(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
         renderBackground(pGuiGraphics);
-        super.render(pGuiGraphics, pMouseX,  pMouseY, pPartialTick);
+        super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
         renderTooltip(pGuiGraphics, pMouseX, pMouseY);
 
-        int energyStored = this.menu.getEnergy();
-        int maxEnergy = this.menu.getMaxEnergy();
+        int[] manaStored = {
+                this.menu.getEnergy(), this.menu.getFireMana(), this.menu.getEarthMana(),
+                this.menu.getWindMana(), this.menu.getDarkMana(), this.menu.getLightMana(), this.menu.getVoidMana()
+        };
 
-        int fireManaStored = this.menu.getFireMana();
-        int maxFireMana = this.menu.getMaxFireMana();
+        int[] maxMana = {
+                this.menu.getMaxEnergy(), this.menu.getMaxFireMana(), this.menu.getMaxEarthMana(),
+                this.menu.getMaxWindMana(), this.menu.getMaxDarkMana(), this.menu.getMaxLightMana(), this.menu.getMaxVoidMana()
+        };
 
-        Component text = Component.literal("Water Mana: " + energyStored + " / " + maxEnergy);
-        if(isHovering(26, 54, 16, 25, pMouseX, pMouseY)) {
-            pGuiGraphics.renderTooltip(this.font, text, pMouseX, pMouseY);
-        }
-        Component fireText = Component.literal("Fire Mana: " + fireManaStored + " / " + maxFireMana);
-        if(isHovering(44, 54, 16, 25, pMouseX, pMouseY)) {
-            pGuiGraphics.renderTooltip(this.font, fireText, pMouseX, pMouseY);
+        Component[] tooltips = {
+                Component.literal("Water Mana: " + manaStored[0] + " / " + maxMana[0]),
+                Component.literal("Fire Mana: " + manaStored[1] + " / " + maxMana[1]),
+                Component.literal("Earth Mana: " + manaStored[2] + " / " + maxMana[2]),
+                Component.literal("Wind Mana: " + manaStored[3] + " / " + maxMana[3]),
+                Component.literal("Dark Mana: " + manaStored[4] + " / " + maxMana[4]),
+                Component.literal("Light Mana: " + manaStored[5] + " / " + maxMana[5]),
+                Component.literal("Void Mana: " + manaStored[6] + " / " + maxMana[6])
+        };
+
+        int[][] tooltipPositions = {
+                {62, 54}, {26, 54}, {134, 54},
+                {98, 54}, {116, 54}, {44, 54}, {80, 54}
+        };
+
+        for (int i = 0; i < tooltipPositions.length; i++) {
+            if (isHovering(tooltipPositions[i][0], tooltipPositions[i][1], 16, 25, pMouseX, pMouseY)) {
+                pGuiGraphics.renderTooltip(this.font, tooltips[i], pMouseX, pMouseY);
+            }
         }
     }
 }

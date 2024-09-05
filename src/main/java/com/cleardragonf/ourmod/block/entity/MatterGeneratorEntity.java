@@ -2,8 +2,7 @@ package com.cleardragonf.ourmod.block.entity;
 
 import com.cleardragonf.ourmod.item.ModItems;
 import com.cleardragonf.ourmod.screens.MatterGeneratorMenu;
-import com.cleardragonf.ourmod.util.FireManaStorage;
-import com.cleardragonf.ourmod.util.WaterManaStorage;
+import com.cleardragonf.ourmod.util.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -47,18 +46,61 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
         return this.fireMana;
     }
 
+    private final AirManaStorage windMana = new AirManaStorage(10000, 0, 100, 0);
+    private final LazyOptional<AirManaStorage> windManaOptional = LazyOptional.of(() ->this.windMana);
+    public LazyOptional<AirManaStorage> getWindManaOptional(){
+        return this.windManaOptional;
+    }
+    public AirManaStorage getWindMana(){
+        return this.windMana;
+    }
 
+    private final EarthManaStorage earthMana = new EarthManaStorage(10000, 0, 100, 0);
+    private final LazyOptional<EarthManaStorage> earthManaOptional = LazyOptional.of(() ->this.earthMana);
+    public LazyOptional<EarthManaStorage> getEarthManaOptional(){
+        return this.earthManaOptional;
+    }
+    public EarthManaStorage getEarthMana(){
+        return this.earthMana;
+    }
+
+    private final DarknessManaStorage darkMana = new DarknessManaStorage(10000, 0, 100, 0);
+    private final LazyOptional<DarknessManaStorage> darkManaOptional = LazyOptional.of(() ->this.darkMana);
+    public LazyOptional<DarknessManaStorage> getDarkManaOptional(){
+        return this.darkManaOptional;
+    }
+    public DarknessManaStorage getDarkMana(){
+        return this.darkMana;
+    }
+
+    private final LightManaStorage lightMana = new LightManaStorage(10000, 0, 100, 0);
+    private final LazyOptional<LightManaStorage> lightManaOptional = LazyOptional.of(() ->this.lightMana);
+    public LazyOptional<LightManaStorage> getLightManaOptional(){
+        return this.lightManaOptional;
+    }
+    public LightManaStorage getLightMana(){
+        return this.lightMana;
+    }
+
+    private final VoidManaStorage voidMana = new VoidManaStorage(10000, 0, 100, 0);
+    private final LazyOptional<VoidManaStorage> voidManaOptional = LazyOptional.of(() ->this.voidMana);
+    public LazyOptional<VoidManaStorage> getVoidManaOptional(){
+        return this.voidManaOptional;
+    }
+    public VoidManaStorage getVoidMana(){
+        return this.voidMana;
+    }
 
 
     private final ItemStackHandler itemHandler = new ItemStackHandler(7);
 
     private static final int FIRE_INPUT_SLOT = 0;
     private static final int WATER_INPUT_SLOT = 1;
-    private static final int EARTH_INPUT_SLOT = 2;
-    private static final int WIND_INPUT_SLOT = 3;
-    private static final int DARKNESS_INPUT_SLOT = 4;
-    private static final int LIGHT_INPUT_SLOT = 5;
-    private static final int VOID_INPUT_SLOT = 6;
+    private static final int WIND_INPUT_SLOT = 2;
+    private static final int EARTH_INPUT_SLOT = 3;
+    private static final int LIGHT_INPUT_SLOT = 4;
+    private static final int VOID_INPUT_SLOT = 5;
+    private static final int DARKNESS_INPUT_SLOT = 6;
 
 
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
@@ -81,6 +123,16 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
                     case 5 -> MatterGeneratorEntity.this.maxBurnTime;
                     case 6 -> MatterGeneratorEntity.this.fireMana.getEnergyStored();
                     case 7 -> MatterGeneratorEntity.this.fireMana.getMaxEnergyStored();
+                    case 8 -> MatterGeneratorEntity.this.earthMana.getEnergyStored();
+                    case 9 -> MatterGeneratorEntity.this.earthMana.getMaxEnergyStored();
+                    case 10 -> MatterGeneratorEntity.this.windMana.getEnergyStored();
+                    case 11 -> MatterGeneratorEntity.this.windMana.getMaxEnergyStored();
+                    case 12 -> MatterGeneratorEntity.this.darkMana.getEnergyStored();
+                    case 13 -> MatterGeneratorEntity.this.darkMana.getMaxEnergyStored();
+                    case 14 -> MatterGeneratorEntity.this.lightMana.getEnergyStored();
+                    case 15 -> MatterGeneratorEntity.this.lightMana.getMaxEnergyStored();
+                    case 16 -> MatterGeneratorEntity.this.voidMana.getEnergyStored();
+                    case 17 -> MatterGeneratorEntity.this.voidMana.getMaxEnergyStored();
                     default -> throw new UnsupportedOperationException("unexpected");
                 };
             }
@@ -94,12 +146,18 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
                     case 4 -> MatterGeneratorEntity.this.burnTime = value;
                     case 5 -> MatterGeneratorEntity.this.maxBurnTime = maxBurnTime;
                     case 6 -> MatterGeneratorEntity.this.fireMana.setEnergy(value);
+                    case 8 -> MatterGeneratorEntity.this.earthMana.setEnergy(value);
+                    case 10 -> MatterGeneratorEntity.this.windMana.setEnergy(value);
+                    case 12 -> MatterGeneratorEntity.this.darkMana.setEnergy(value);
+                    case 14 -> MatterGeneratorEntity.this.lightMana.setEnergy(value);
+                    case 16 -> MatterGeneratorEntity.this.voidMana.setEnergy(value);
+
                 }
             }
 
             @Override
             public int getCount() {
-                return 8;
+                return 18;
             }
         };
     }
@@ -152,7 +210,11 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
         tag.putInt("matter_generator.progress", progress);
         tag.put("WaterEnergy", this.waterMana.serializeNBT());
         tag.put("FireEnergy", this.fireMana.serializeNBT());
-
+        tag.put("WindEnergy", this.windMana.serializeNBT());
+        tag.put("EarthEnergy", this.earthMana.serializeNBT());
+        tag.put("DarkEnergy", this.darkMana.serializeNBT());
+        tag.put("LightEnergy", this.lightMana.serializeNBT());
+        tag.put("VoidEnergy", this.voidMana.serializeNBT());
         super.saveAdditional(tag);
     }
 
@@ -166,6 +228,21 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
         }
         if(tag.contains("FireEnergy", CompoundTag.TAG_INT)){
             this.fireMana.deserializeNBT(tag.get("FireEnergy"));
+        }
+        if(tag.contains("EarthEnergy", CompoundTag.TAG_INT)){
+            this.earthMana.deserializeNBT(tag.get("EarthEnergy"));
+        }
+        if(tag.contains("WindEnergy", CompoundTag.TAG_INT)){
+            this.windMana.deserializeNBT(tag.get("WindEnergy"));
+        }
+        if(tag.contains("DarkEnergy", CompoundTag.TAG_INT)){
+            this.darkMana.deserializeNBT(tag.get("DarkEnergy"));
+        }
+        if(tag.contains("LightEnergy", CompoundTag.TAG_INT)){
+            this.lightMana.deserializeNBT(tag.get("LightEnergy"));
+        }
+        if(tag.contains("VoidEnergy", CompoundTag.TAG_INT)){
+            this.voidMana.deserializeNBT(tag.get("VoidEnergy"));
         }
     }
 
@@ -197,6 +274,11 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
         return switch (slot) {
             case WATER_INPUT_SLOT -> this.waterMana.getEnergyStored() < this.waterMana.getMaxEnergyStored();
             case FIRE_INPUT_SLOT -> this.fireMana.getEnergyStored() < this.fireMana.getMaxEnergyStored();
+            case EARTH_INPUT_SLOT -> this.earthMana.getEnergyStored() < this.earthMana.getMaxEnergyStored();
+            case WIND_INPUT_SLOT -> this.windMana.getEnergyStored() < this.windMana.getMaxEnergyStored();
+            case DARKNESS_INPUT_SLOT -> this.darkMana.getEnergyStored() < this.darkMana.getMaxEnergyStored();
+            case LIGHT_INPUT_SLOT -> this.lightMana.getEnergyStored() < this.lightMana.getMaxEnergyStored();
+            case VOID_INPUT_SLOT -> this.voidMana.getEnergyStored() < this.voidMana.getMaxEnergyStored();
             // Add other slots (EARTH, WIND, DARKNESS, LIGHT, VOID) and their respective mana storages here
             default -> false;
         };
@@ -210,20 +292,33 @@ public class MatterGeneratorEntity extends BlockEntity implements MenuProvider {
     }
 
     private void craftItem(int slot) {
-        this.itemHandler.extractItem(slot, 1, false);
-
         switch (slot){
             case WATER_INPUT_SLOT -> {
-                this.waterMana.addEnergy(getEnergyQuantity(slot));
+                this.waterMana.addEnergy(getEnergyQuantity(this.itemHandler.getStackInSlot(slot).getItem()));
             }
             case FIRE_INPUT_SLOT -> {
-                this.fireMana.addEnergy(getEnergyQuantity(slot));
+                this.fireMana.addEnergy(getEnergyQuantity(this.itemHandler.getStackInSlot(slot).getItem()));
+            }
+            case EARTH_INPUT_SLOT -> {
+                this.earthMana.addEnergy(getEnergyQuantity(this.itemHandler.getStackInSlot(slot).getItem()));
+            }
+            case WIND_INPUT_SLOT -> {
+                this.windMana.addEnergy(getEnergyQuantity(this.itemHandler.getStackInSlot(slot).getItem()));
+            }
+            case DARKNESS_INPUT_SLOT -> {
+                this.darkMana.addEnergy(getEnergyQuantity(this.itemHandler.getStackInSlot(slot).getItem()));
+            }
+            case LIGHT_INPUT_SLOT -> {
+                this.lightMana.addEnergy(getEnergyQuantity(this.itemHandler.getStackInSlot(slot).getItem()));
+            }
+            case VOID_INPUT_SLOT -> {
+                this.voidMana.addEnergy(getEnergyQuantity(this.itemHandler.getStackInSlot(slot).getItem()));
             }
         }
+        this.itemHandler.extractItem(slot, 1, false);
     }
 
-    private int getEnergyQuantity(int slot) {
-        Item inputItem = this.itemHandler.getStackInSlot(slot).getItem();
+    private int getEnergyQuantity(Item inputItem) {
 
         if(inputItem == ModItems.RAW_MATTER.get()){
             return 100;

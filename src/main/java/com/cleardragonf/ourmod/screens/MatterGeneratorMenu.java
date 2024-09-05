@@ -19,7 +19,7 @@ public class MatterGeneratorMenu extends AbstractContainerMenu {
 
     //Client Constructor
     public MatterGeneratorMenu(int containerId, Inventory inv, FriendlyByteBuf extraData){
-        this(containerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(8));
+        this(containerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(18));
     }
 
     //Server Constructor
@@ -136,12 +136,58 @@ public class MatterGeneratorMenu extends AbstractContainerMenu {
         return this.data.get(6);
     }
 
+
+    public int getEarthMana(){
+        return this.data.get(8);
+    }
+
+
+    public int getWindMana(){
+        return this.data.get(10);
+    }
+
+
+    public int getDarkMana(){
+        return this.data.get(12);
+    }
+
+
+    public int getLightMana(){
+        return this.data.get(14);
+    }
+
+
+    public int getVoidMana(){
+        return this.data.get(16);
+    }
+
     public int getMaxEnergy() {
         return this.data.get(3);
     }
 
     public int getMaxFireMana() {
         return this.data.get(7);
+    }
+
+
+    public int getMaxEarthMana() {
+        return this.data.get(9);
+    }
+
+    public int getMaxWindMana() {
+        return this.data.get(11);
+    }
+
+    public int getMaxDarkMana() {
+        return this.data.get(13);
+    }
+
+    public int getMaxLightMana() {
+        return this.data.get(15);
+    }
+
+    public int getMaxVoidMana() {
+        return this.data.get(17);
     }
 
     public int getBurnTime() {
@@ -158,6 +204,27 @@ public class MatterGeneratorMenu extends AbstractContainerMenu {
 
     public int getFireManaScaled(){
         return (int) (((float) getFireMana() / (float) getMaxFireMana()) * 25);
+    }
+
+
+    public int getEarthManaScaled(){
+        return (int) (((float) getEarthMana() / (float) getMaxEarthMana()) * 25);
+    }
+
+    public int getWindManaScaled(){
+        return (int) (((float) getWindMana() / (float) getMaxWindMana()) * 25);
+    }
+
+    public int getDarkManaScaled(){
+        return (int) (((float) getDarkMana() / (float) getMaxDarkMana()) * 25);
+    }
+
+    public int getLightManaScaled(){
+        return (int) (((float) getLightMana() / (float) getMaxLightMana()) * 25);
+    }
+
+    public int getVoidManaScaled(){
+        return (int) (((float) getVoidMana() / (float) getMaxVoidMana()) * 25);
     }
 
 }
