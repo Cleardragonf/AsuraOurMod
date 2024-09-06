@@ -34,10 +34,8 @@ public class ModBlockStateProvider extends BlockStateProvider  {
                 new ModelFile.UncheckedModelFile(modLoc("block/matter_conversion_block")));
         simpleBlockWithItem( ModBlocks.MATTER_GENERATOR_BLOCK.get(),
                 new ModelFile.UncheckedModelFile(modLoc("block/matter_generator_block")));
-        simpleBlockWithItem( ModBlocks.MATTER_COLLECTION_BLOCK.get(),
-                new ModelFile.UncheckedModelFile(modLoc("block/matter_collection_block")));
-        simpleBlockWithItem(ModBlocks.MANA_BATTERY_BLOCK.get(),
-                new ModelFile.UncheckedModelFile(modLoc("block/mana_battery_block")));
+        blockWithItem(ModBlocks.MATTER_COLLECTION_BLOCK);
+        blockWithItem(ModBlocks.MANA_BATTERY_BLOCK);
     }
 
     private void blockWithItem(RegistryObject<Block> blockRegistryObject){
