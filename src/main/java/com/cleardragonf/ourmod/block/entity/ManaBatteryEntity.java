@@ -1,5 +1,7 @@
 package com.cleardragonf.ourmod.block.entity;
 
+import com.cleardragonf.ourmod.block.ModBlocks;
+import com.cleardragonf.ourmod.block.custom.MatterCollectionBlock;
 import com.cleardragonf.ourmod.screens.ManaBatteryMenu;
 import com.cleardragonf.ourmod.util.*;
 import net.minecraft.core.BlockPos;
@@ -28,9 +30,12 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ManaBatteryEntity extends BlockEntity implements MenuProvider {
 
-    private final WaterManaStorage waterMana = new WaterManaStorage(1000, 0, 100, 0);
+    private final WaterManaStorage waterMana = new WaterManaStorage(10000, 100, 100, 0);
     private final LazyOptional<WaterManaStorage> waterManaOptional = LazyOptional.of(() ->this.waterMana);
     public LazyOptional<WaterManaStorage> getWaterManaOptional(){
         return this.waterManaOptional;
@@ -39,7 +44,7 @@ public class ManaBatteryEntity extends BlockEntity implements MenuProvider {
         return this.waterMana;
     }
 
-    private final FireManaStorage fireMana = new FireManaStorage(1000, 0, 100, 0);
+    private final FireManaStorage fireMana = new FireManaStorage(10000, 100, 100, 0);
     private final LazyOptional<FireManaStorage> fireManaOptional = LazyOptional.of(() ->this.fireMana);
     public LazyOptional<FireManaStorage> getFireManaOptional(){
         return this.fireManaOptional;
@@ -48,7 +53,7 @@ public class ManaBatteryEntity extends BlockEntity implements MenuProvider {
         return this.fireMana;
     }
 
-    private final AirManaStorage windMana = new AirManaStorage(1000, 0, 100, 0);
+    private final AirManaStorage windMana = new AirManaStorage(10000, 100, 100, 0);
     private final LazyOptional<AirManaStorage> windManaOptional = LazyOptional.of(() ->this.windMana);
     public LazyOptional<AirManaStorage> getWindManaOptional(){
         return this.windManaOptional;
@@ -57,7 +62,7 @@ public class ManaBatteryEntity extends BlockEntity implements MenuProvider {
         return this.windMana;
     }
 
-    private final EarthManaStorage earthMana = new EarthManaStorage(1000, 0, 100, 0);
+    private final EarthManaStorage earthMana = new EarthManaStorage(10000, 100, 100, 0);
     private final LazyOptional<EarthManaStorage> earthManaOptional = LazyOptional.of(() ->this.earthMana);
     public LazyOptional<EarthManaStorage> getEarthManaOptional(){
         return this.earthManaOptional;
@@ -66,7 +71,7 @@ public class ManaBatteryEntity extends BlockEntity implements MenuProvider {
         return this.earthMana;
     }
 
-    private final DarknessManaStorage darkMana = new DarknessManaStorage(1000, 0, 100, 0);
+    private final DarknessManaStorage darkMana = new DarknessManaStorage(10000, 100, 100, 0);
     private final LazyOptional<DarknessManaStorage> darkManaOptional = LazyOptional.of(() ->this.darkMana);
     public LazyOptional<DarknessManaStorage> getDarkManaOptional(){
         return this.darkManaOptional;
@@ -75,7 +80,7 @@ public class ManaBatteryEntity extends BlockEntity implements MenuProvider {
         return this.darkMana;
     }
 
-    private final LightManaStorage lightMana = new LightManaStorage(1000, 0, 100, 0);
+    private final LightManaStorage lightMana = new LightManaStorage(10000, 100, 100, 0);
     private final LazyOptional<LightManaStorage> lightManaOptional = LazyOptional.of(() ->this.lightMana);
     public LazyOptional<LightManaStorage> getLightManaOptional(){
         return this.lightManaOptional;
@@ -84,7 +89,7 @@ public class ManaBatteryEntity extends BlockEntity implements MenuProvider {
         return this.lightMana;
     }
 
-    private final VoidManaStorage voidMana = new VoidManaStorage(1000, 0, 100, 0);
+    private final VoidManaStorage voidMana = new VoidManaStorage(10000, 100, 100, 0);
     private final LazyOptional<VoidManaStorage> voidManaOptional = LazyOptional.of(() ->this.voidMana);
     public LazyOptional<VoidManaStorage> getVoidManaOptional(){
         return this.voidManaOptional;
@@ -162,8 +167,6 @@ public class ManaBatteryEntity extends BlockEntity implements MenuProvider {
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
         if(cap == ForgeCapabilities.ITEM_HANDLER){
             return lazyItemHandler.cast();
-        }else if(cap == ForgeCapabilities.ENERGY){
-            return this.waterManaOptional.cast();
         }else{
             return super.getCapability(cap, side);
         }
@@ -243,24 +246,19 @@ public class ManaBatteryEntity extends BlockEntity implements MenuProvider {
     }
 
     private int burnTime = 0, maxBurnTime = 0;
+    private List<BlockPos> inputBlocks = new ArrayList<>();
 
     public void tick(Level level, BlockPos blockPos, BlockState blockState) {
         if (this.level == null || this.level.isClientSide()) {
             return;
         }
 
+
         // Reset the gathering progress and mana before checking the surrounding blocks
         resetGathering();
 
         // Iterate through surrounding blocks in a 3x3x3 area centered on the entity
         BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-        int surroundingEarthBlocks = 0;
-        int surroundingFireBlocks = 0;
-        int surroundingAirBlocks = 0;
-        int surroundingWaterBlocks = 0;
-        int surroundingDarkBlocks = 0;
-        int surroundingLightBlocks = 0;
-        int surroundingVoidBlocks = 0;
 
         for (int x = -1; x <= 1; x++) {
             for (int y = -1; y <= 1; y++) {
@@ -273,38 +271,29 @@ public class ManaBatteryEntity extends BlockEntity implements MenuProvider {
                     FluidState surroundingFluidState = level.getFluidState(mutableBlockPos);
                     int lightLevel = level.getMaxLocalRawBrightness(mutableBlockPos);
 
-                    if (surroundingBlockState.is(BlockTags.DIRT) || surroundingBlockState.is(Blocks.STONE)) {
+                    if (surroundingBlockState.is(ModBlocks.MATTER_COLLECTION_BLOCK.get())) {
                         // Increase Earth Mana by 1 for each dirt or stone block
-                        surroundingEarthBlocks++;
-                    } else if (surroundingBlockState.is(BlockTags.FIRE) || surroundingFluidState.is(FluidTags.LAVA)) {
-                        surroundingFireBlocks++;
-                    } else if (surroundingBlockState.is(Blocks.AIR)) {
-                        surroundingAirBlocks++;
-                    } else if (surroundingBlockState.is(Blocks.WATER) || surroundingFluidState.is(FluidTags.WATER)) {
-                        surroundingWaterBlocks++;
-                    } else if (surroundingBlockState.is(Blocks.END_STONE)) {
-                        surroundingVoidBlocks++;
-                    } else {
-                        // Determine light or dark based on the light level
-                        if (lightLevel >= 10) {
-                            surroundingLightBlocks++;
-                        } else {
-                            surroundingDarkBlocks++;
+                        if (!inputBlocks.contains(mutableBlockPos.immutable())) {
+                            inputBlocks.add(mutableBlockPos.immutable());
                         }
                     }
                 }
             }
         }
+        //TODO: Get mana from the surround blocks of inputBlocks
+        for(BlockPos pos : inputBlocks){
+            if(!(level.getBlockEntity(pos) instanceof MatterCollectionEntity)){
+                inputBlocks.remove(pos);
+                return;
+            }else{
+                MatterCollectionEntity blockentity = (MatterCollectionEntity) level.getBlockEntity(pos);
+                transferMana(blockentity, this, 100);
+            }
+        }
 
-        // Add energy based on the number of blocks counted
-        this.windMana.addEnergy(surroundingAirBlocks);
-        this.fireMana.addEnergy(surroundingFireBlocks);
-        this.earthMana.addEnergy(surroundingEarthBlocks);
-        this.waterMana.addEnergy(surroundingWaterBlocks);
-        this.darkMana.addEnergy(surroundingDarkBlocks);
-        this.lightMana.addEnergy(surroundingLightBlocks);
-        this.voidMana.addEnergy(surroundingVoidBlocks);
     }
+
+
 
 
 
@@ -321,6 +310,71 @@ public class ManaBatteryEntity extends BlockEntity implements MenuProvider {
 
     private void increaseGatheringProgress() {
         progress++;
+    }
+
+    public void transferMana(MatterCollectionEntity source, ManaBatteryEntity target, int amount) {
+        if(!(this.waterMana.getEnergyStored() == this.waterMana.getMaxEnergyStored())){
+            int extractedWaterMana = source.extractWaterMana(amount);
+            target.receiveWaterMana(extractedWaterMana);
+            setChanged();
+        }
+        if(!(this.fireMana.getEnergyStored() == this.fireMana.getMaxEnergyStored())) {
+            int extractedFireMana = source.extractFireMana(amount);
+            target.receiveFireMana(extractedFireMana);
+            setChanged();
+        }
+        if(!(this.windMana.getEnergyStored() == this.windMana.getMaxEnergyStored())) {
+            int extractedAirMana = source.extractAirMana(amount);
+            target.receiveAirMana(extractedAirMana);
+            setChanged();
+        }
+        if(!(this.earthMana.getEnergyStored() == this.earthMana.getMaxEnergyStored())) {
+            int extractedEarthMana = source.extractEarthMana(amount);
+            target.receiveEarthMana(extractedEarthMana);
+            setChanged();
+        }
+        if(!(this.lightMana.getEnergyStored() == this.lightMana.getMaxEnergyStored())) {
+            int extractedLightMana = source.extractLightMana(amount);
+            target.receiveLightMana(extractedLightMana);
+            setChanged();
+        }
+        if(!(this.darkMana.getEnergyStored() == this.darkMana.getMaxEnergyStored())) {
+            int extractedDarkMana = source.extractDarkMana(amount);
+            target.receiveDarkMana(extractedDarkMana);
+            setChanged();
+        }
+        if(!(this.voidMana.getEnergyStored() == this.voidMana.getMaxEnergyStored())) {
+            int extractedVoidMana = source.extractVoidMana(amount);
+            target.receiveVoidMana(extractedVoidMana);
+            setChanged();
+        }
+        // Repeat this for other mana types (Dark, Light, Void)...
+    }
+
+
+    public void receiveWaterMana(int amount) {
+        this.waterMana.receiveEnergy(amount, false);
+    }
+
+    public void receiveFireMana(int amount) {
+        this.fireMana.receiveEnergy(amount, false);
+    }
+
+    public void receiveEarthMana(int amount) {
+        this.earthMana.receiveEnergy(amount, false);
+    }
+
+    public void receiveAirMana(int amount) {
+        this.windMana.receiveEnergy(amount, false);
+    }
+    public void receiveLightMana(int amount) {
+        this.lightMana.receiveEnergy(amount, false);
+    }
+    public void receiveDarkMana(int amount) {
+        this.darkMana.receiveEnergy(amount, false);
+    }
+    public void receiveVoidMana(int amount) {
+        this.voidMana.receiveEnergy(amount, false);
     }
 
 }

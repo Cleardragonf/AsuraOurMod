@@ -323,4 +323,58 @@ public class MatterCollectionEntity extends BlockEntity implements MenuProvider 
         progress++;
     }
 
+    public int extractWaterMana(int amount) {
+        if(this.waterMana.getEnergyStored() >= amount){
+            return this.waterMana.extractEnergy(amount, false);
+        }else{
+            return this.waterMana.extractEnergy(0, false);
+        }
+    }
+
+    public int extractFireMana(int amount) {
+        if(this.fireMana.getEnergyStored() >= amount){
+            return this.fireMana.extractEnergy(amount, false);
+        }else{
+            return this.fireMana.extractEnergy(0, false);
+        }
+    }
+
+    public int extractEarthMana(int amount) {
+        if(this.earthMana.getEnergyStored() >= amount){
+            return this.earthMana.extractEnergy(amount, false);
+        }else{
+            return this.earthMana.extractEnergy(0, false);
+        }
+    }
+
+    public int extractAirMana(int amount) {
+        if(this.windMana.getEnergyStored() >= amount){
+            return this.windMana.extractEnergy(amount, false);
+        }else{
+            return this.windMana.extractEnergy(0, false);
+        }
+    }
+    public int extractLightMana(int amount) {
+        if(this.lightMana.getEnergyStored() >= amount){
+            return this.lightMana.extractEnergy(amount, false);
+        }else{
+            return this.lightMana.extractEnergy(0, false);
+        }
+    }
+    public int extractDarkMana(int amount) {
+        if(this.darkMana.getEnergyStored() >= amount){
+            return this.darkMana.extractEnergy(amount, false);
+        }else{
+            return this.darkMana.extractEnergy(0, false);
+        }
+    }
+    public int extractVoidMana(int amount) {
+        if(this.voidMana.getEnergyStored() >= amount){
+            return this.voidMana.extractEnergy(amount, false);
+        }else{
+            return this.voidMana.extractEnergy(0, false);
+        }
+    }
+
+
 }
