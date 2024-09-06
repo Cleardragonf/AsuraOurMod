@@ -280,7 +280,6 @@ public class ManaBatteryEntity extends BlockEntity implements MenuProvider {
                 }
             }
         }
-        //TODO: Get mana from the surround blocks of inputBlocks
         for(BlockPos pos : inputBlocks){
             if(!(level.getBlockEntity(pos) instanceof MatterCollectionEntity)){
                 inputBlocks.remove(pos);
