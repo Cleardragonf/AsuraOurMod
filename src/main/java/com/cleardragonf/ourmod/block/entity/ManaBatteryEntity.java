@@ -260,9 +260,9 @@ public class ManaBatteryEntity extends BlockEntity implements MenuProvider {
         // Iterate through surrounding blocks in a 3x3x3 area centered on the entity
         BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 
-        for (int x = -1; x <= 1; x++) {
-            for (int y = -1; y <= 1; y++) {
-                for (int z = -1; z <= 1; z++) {
+        for (int x = -10; x <= 10; x++) {
+            for (int y = -10; y <= 10; y++) {
+                for (int z = -10; z <= 10; z++) {
                     // Set the mutable position to the surrounding block
                     mutableBlockPos.set(blockPos.getX() + x, blockPos.getY() + y, blockPos.getZ() + z);
 
