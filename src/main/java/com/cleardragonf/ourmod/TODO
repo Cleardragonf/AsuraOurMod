@@ -1,6 +1,5 @@
 ###Major Effects###
  •  ADD Block Capability for EMC or somesuch
- •  ADD Will need a block that collects EMC
  •  ADD Block that will convert Mana to FE for Compatibility
     •  It'll pool ALL Energy into a grouping called 'MANA' and convert it at 100:1 Ratio
  •  ADD will need to build a MultiBlock Structure
@@ -17,3 +16,8 @@
     •  Make Battery into MutliBlock Battery....
     •  Add Extraction Method for things that need to use Mana Batteries
 
+    ###Matter Collection Block###
+    •  Randomize Sources of it's power being Broken/ Destroyed
+    •  Add Upgradeslots?
+        •  Focus Crystal to increase the power drawn into the collector?
+        •  Stability Crystal to decrease the RandomizeSources of power from being destroyed.
