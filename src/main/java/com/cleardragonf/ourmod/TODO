@@ -20,3 +20,13 @@
     •  Add Upgradeslots?
         •  Focus Crystal to increase the power drawn into the collector?
         •  Stability Crystal to decrease the RandomizeSources of power from being destroyed.
+
+    ###Matter Equiv Block###
+    •  Create a block that'll convert Mana into Items.
+        •  Utilize the ItemStack stack = player.getMainHandItem();  // Example: Get the item in the player's main hand
+                       int value = ItemValueRegistry.getValueForItem(stack.getItem());
+    •  Have Multiple Slots BUT they only Open...IF another Matter Equiv Block has been EATEN By it....
+        •  Save how many Slots are open vs closed.
+        •  have 9 Slots
+        •  All of them should be trying to generate at the same time
+    •  Have a scrollable Inventory....
