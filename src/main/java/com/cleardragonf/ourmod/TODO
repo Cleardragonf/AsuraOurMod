@@ -22,7 +22,7 @@
         •  Stability Crystal to decrease the RandomizeSources of power from being destroyed.
 
     ###Matter Equiv Block###
-    •  Create a block that'll convert Mana into Items.
+    •  Create a block that'll convert Mana into Items. STARTED
         •  Utilize the ItemStack stack = player.getMainHandItem();  // Example: Get the item in the player's main hand
                        int value = ItemValueRegistry.getValueForItem(stack.getItem());
     •  Have Multiple Slots BUT they only Open...IF another Matter Equiv Block has been EATEN By it....

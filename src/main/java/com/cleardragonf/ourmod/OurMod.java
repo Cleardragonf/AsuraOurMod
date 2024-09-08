@@ -77,6 +77,7 @@ public class OurMod {
     public static class ClientModEvents{
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event){
+            MenuScreens.register(ModMenuTypes.TEMPLATE_MENU.get(), TemplateScreen::new);
             MenuScreens.register(ModMenuTypes.MATTER_CONVERSION_MENU.get(), MatterConversionScreen::new);
             MenuScreens.register(ModMenuTypes.MATTER_GENERATOR_MENU.get(), MatterGeneratorScreen::new);
             MenuScreens.register(ModMenuTypes.MATTER_COLLECTION_MENU.get(), MatterCollectionScreen::new);

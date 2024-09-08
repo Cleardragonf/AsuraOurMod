@@ -30,13 +30,14 @@ public class ModBlockStateProvider extends BlockStateProvider  {
         blockWithItem(ModBlocks.DARKNESS_MATTER_ORE);
         blockWithItem(ModBlocks.LIGHT_MATTER_ORE);
 
-        simpleBlockWithItem( ModBlocks.MATTER_CONVERSION_BLOCK.get(),
-                new ModelFile.UncheckedModelFile(modLoc("block/matter_conversion_block")));
+        simpleBlockWithItem( ModBlocks.TEMPLATE_BLOCK.get(),
+                new ModelFile.UncheckedModelFile(modLoc("block/template_block")));
         simpleBlockWithItem( ModBlocks.MATTER_GENERATOR_BLOCK.get(),
                 new ModelFile.UncheckedModelFile(modLoc("block/matter_generator_block")));
         blockWithItem(ModBlocks.MATTER_COLLECTION_BLOCK);
         blockWithItem(ModBlocks.MANA_BATTERY_BLOCK);
-    }
+        simpleBlockWithItem( ModBlocks.MATTER_CONVERSION_BLOCK.get(),
+                new ModelFile.UncheckedModelFile(modLoc("block/matter_conversion_block")));    }
 
     private void blockWithItem(RegistryObject<Block> blockRegistryObject){
         simpleBlockWithItem(blockRegistryObject.get(), cubeAll(blockRegistryObject.get()));

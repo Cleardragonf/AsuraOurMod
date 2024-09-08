@@ -45,6 +45,7 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModBlocks.RAW_MATTER_BLOCK.get());
 
 
+                        pOutput.accept(ModBlocks.TEMPLATE_BLOCK.get());
                         pOutput.accept(ModBlocks.MATTER_CONVERSION_BLOCK.get());
                         pOutput.accept(ModBlocks.MATTER_GENERATOR_BLOCK.get());
                         pOutput.accept(ModBlocks.MATTER_COLLECTION_BLOCK.get());

@@ -1,10 +1,7 @@
 package com.cleardragonf.ourmod.block;
 
 import com.cleardragonf.ourmod.OurMod;
-import com.cleardragonf.ourmod.block.custom.ManaBatterBlock;
-import com.cleardragonf.ourmod.block.custom.MatterCollectionBlock;
-import com.cleardragonf.ourmod.block.custom.MatterConversionBlock;
-import com.cleardragonf.ourmod.block.custom.MatterGeneratorBlock;
+import com.cleardragonf.ourmod.block.custom.*;
 import com.cleardragonf.ourmod.item.ModItems;
 import com.cleardragonf.ourmod.sound.ModSounds;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -32,15 +29,16 @@ public class ModBlocks {
     public static final RegistryObject<Block> RAW_MATTER_BLOCK = registerBlock("raw_matter_block",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
 
-    public static final RegistryObject<Block> MATTER_CONVERSION_BLOCK = registerBlock("matter_conversion_block",
-            () -> new MatterConversionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST))) ;
+    public static final RegistryObject<Block> TEMPLATE_BLOCK = registerBlock("template_block",
+            () -> new TemplateBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST))) ;
     public static final RegistryObject<Block> MATTER_GENERATOR_BLOCK = registerBlock("matter_generator_block",
             () -> new MatterGeneratorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST))) ;
     public static final RegistryObject<Block> MATTER_COLLECTION_BLOCK = registerBlock("matter_collection_block",
             () -> new MatterCollectionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST))) ;
     public static final RegistryObject<Block> MANA_BATTERY_BLOCK = registerBlock("mana_battery_block",
             () -> new ManaBatterBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST))) ;
-
+    public static final RegistryObject<Block> MATTER_CONVERSION_BLOCK = registerBlock("matter_conversion_block",
+            () -> new MatterConversionBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST))) ;
 
     public static final RegistryObject<Block> MATTER_ORE = registerBlock("matter_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)

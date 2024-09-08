@@ -14,15 +14,16 @@ public class ModMenuTypes {
     public static final DeferredRegister<MenuType<?>> MENUS =
             DeferredRegister.create(ForgeRegistries.MENU_TYPES, OurMod.MODID);
 
-    public static final RegistryObject<MenuType<MatterConversionMenu>> MATTER_CONVERSION_MENU =
-            registerMenuType("matter_conversion_menu", MatterConversionMenu::new);
+    public static final RegistryObject<MenuType<TemplateMenu>> TEMPLATE_MENU =
+            registerMenuType("template_menu", TemplateMenu::new);
     public static final RegistryObject<MenuType<MatterGeneratorMenu>> MATTER_GENERATOR_MENU =
             registerMenuType("matter_generator_menu", MatterGeneratorMenu::new);
     public static final RegistryObject<MenuType<MatterCollectionMenu>> MATTER_COLLECTION_MENU =
             registerMenuType("matter_collection_menu", MatterCollectionMenu::new);
     public static final RegistryObject<MenuType<ManaBatteryMenu>> MANA_BATTERY_MENU =
             registerMenuType("mana_battery_menu", ManaBatteryMenu::new);
-
+    public static final RegistryObject<MenuType<MatterConversionMenu>> MATTER_CONVERSION_MENU =
+            registerMenuType("matter_conversion_menu", MatterConversionMenu::new);
 
     private static <T extends AbstractContainerMenu>RegistryObject<MenuType<T>> registerMenuType(String name, IContainerFactory<T> factory){
         return MENUS.register(name, () -> IForgeMenuType.create(factory));

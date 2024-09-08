@@ -14,10 +14,10 @@ public class ModBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
             DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, OurMod.MODID);
 
-    public static final RegistryObject<BlockEntityType<MatterConversionBlockEntity>> MATTER_CONVERSion_BE =
-            BLOCK_ENTITIES.register("matter_conversion_be", () ->
-                    BlockEntityType.Builder.of(MatterConversionBlockEntity::new,
-                            ModBlocks.MATTER_CONVERSION_BLOCK.get()).build(null)
+    public static final RegistryObject<BlockEntityType<TemplateBlockEntity>> TEMPLATE_BE =
+            BLOCK_ENTITIES.register("template_be", () ->
+                    BlockEntityType.Builder.of(TemplateBlockEntity::new,
+                            ModBlocks.TEMPLATE_BLOCK.get()).build(null)
 
             );
     public static final RegistryObject<BlockEntityType<MatterGeneratorEntity>> MATTER_GENERATOR_BE =
@@ -36,6 +36,12 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("mana_battery_be", () ->
                     BlockEntityType.Builder.of(ManaBatteryEntity::new,
                             ModBlocks.MANA_BATTERY_BLOCK.get()).build(null)
+
+            );
+    public static final RegistryObject<BlockEntityType<MatterConversionBlockEntity>> MATTER_CONVERSion_BE =
+            BLOCK_ENTITIES.register("matter_conversion_be", () ->
+                    BlockEntityType.Builder.of(MatterConversionBlockEntity::new,
+                            ModBlocks.MATTER_CONVERSION_BLOCK.get()).build(null)
 
             );
 
