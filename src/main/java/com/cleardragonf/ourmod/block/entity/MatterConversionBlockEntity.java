@@ -13,6 +13,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -26,12 +27,38 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.lwjgl.system.windows.INPUT;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MatterConversionBlockEntity extends BlockEntity implements MenuProvider {
-    private final ItemStackHandler itemHandler = new ItemStackHandler(2);
+    private final ItemStackHandler itemHandler = new ItemStackHandler(41);
 
-    private static final int INPUT_SLOT = 0;
-    private static final int OUTPUT_SLOT = 1;
+    private static final int INPUT_SLOT_1 = 0;
+    private static final int INPUT_SLOT_2 = 1;
+    private static final int INPUT_SLOT_3 = 2;
+    private static final int INPUT_SLOT_4 = 3;
+    private static final int INPUT_SLOT_5 = 4;
+    private static final int INPUT_SLOT_6 = 5;
+    private static final int INPUT_SLOT_7 = 6;
+    private static final int INPUT_SLOT_8 = 7;
+    private static final int INPUT_SLOT_9 = 8;
+
+    //his.itemHandler.getStackInSlot(slot).getItem())
+
+    private List<Integer> INPUTS = new ArrayList<>(){{
+        add(INPUT_SLOT_1);
+        add(INPUT_SLOT_2);
+        add(INPUT_SLOT_3);
+        add(INPUT_SLOT_4);
+        add(INPUT_SLOT_5);
+        add(INPUT_SLOT_6);
+        add(INPUT_SLOT_7);
+        add(INPUT_SLOT_8);
+        add(INPUT_SLOT_9);
+    }};
+
 
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
 
@@ -67,17 +94,19 @@ public class MatterConversionBlockEntity extends BlockEntity implements MenuProv
     }
 
     @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == ForgeCapabilities.ITEM_HANDLER){
-            return lazyItemHandler.cast();
+    public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
+        if (cap == ForgeCapabilities.ITEM_HANDLER) {
+            return LazyOptional.of(() -> itemHandler).cast();
         }
         return super.getCapability(cap, side);
     }
+
 
     @Override
     public void onLoad() {
         super.onLoad();
         lazyItemHandler = LazyOptional.of(() -> itemHandler);
+
     }
 
     @Override
@@ -120,29 +149,45 @@ public class MatterConversionBlockEntity extends BlockEntity implements MenuProv
     }
 
     public void tick(Level level1, BlockPos blockPos, BlockState blockState) {
-        if(hasRecipe()){
-            increaseGatheringProgress();
-            setChanged(level1, blockPos, blockState);
 
-            if(hasGatheringFinished()){
-                craftItem();
-                resetGathering();
-            }
-        }else{
-            resetGathering();
-        }
+//        for(Integer slot : INPUTS){
+//            if(hasRecipe(slot)){  //TODO:  Make sure hasRecipe() also checks to make sure the slot is active...
+//                increaseGatheringProgress();
+//                setChanged(level1, blockPos, blockState);
+//
+//                if(hasGatheringFinished()){
+//                    craftItem(slot);
+//                    resetGathering();
+//                }
+//            }else{
+//                resetGathering();
+//            }
+//        }
+
+        //TODO:  Make a for loop that cycles through EACH of the INPUTS and pretty much does the same as the below.
+//        if(hasRecipe()){
+//            increaseGatheringProgress();
+//            setChanged(level1, blockPos, blockState);
+//
+//            if(hasGatheringFinished()){
+//                craftItem();
+//                resetGathering();
+//            }
+//        }else{
+//            resetGathering();
+//        }
     }
 
     private void resetGathering() {
         progress = 0;
     }
 
-    private void craftItem() {
+    private void craftItem(int slot) {
         ItemStack result = new ItemStack(ModItems.CONDENSED_MATTER.get(), 1);
-        this.itemHandler.extractItem(INPUT_SLOT, 1, false);
+        this.itemHandler.extractItem(slot, 1, false);
 
-        this.itemHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(result.getItem(),
-                this.itemHandler.getStackInSlot(OUTPUT_SLOT).getCount() + result.getCount()));
+        this.itemHandler.setStackInSlot(slot, new ItemStack(result.getItem(),
+                this.itemHandler.getStackInSlot(slot).getCount() + result.getCount()));
     }
 
     private boolean hasGatheringFinished() {
@@ -154,8 +199,8 @@ public class MatterConversionBlockEntity extends BlockEntity implements MenuProv
         progress++;
     }
 
-    private boolean hasRecipe() {
-        Item inputItem = this.itemHandler.getStackInSlot(INPUT_SLOT).getItem();
+    private boolean hasRecipe(Integer slot) {
+        Item inputItem = this.itemHandler.getStackInSlot(slot).getItem();
 
         if(inputItem == ModItems.RAW_MATTER.get()){
             ItemStack result = new ItemStack(ModItems.CONDENSED_MATTER.get());
@@ -191,10 +236,12 @@ public class MatterConversionBlockEntity extends BlockEntity implements MenuProv
     }
 
     private boolean canInsertItemIntoOutputSlot(Item item) {
-        return this.itemHandler.getStackInSlot(OUTPUT_SLOT).isEmpty() || this.itemHandler.getStackInSlot(OUTPUT_SLOT).is(item);
+//        return this.itemHandler.getStackInSlot(OUTPUT_SLOT).isEmpty() || this.itemHandler.getStackInSlot(OUTPUT_SLOT).is(item);
+        return true;
     }
 
     private boolean canInsertAmountIntoOutputSlot(int count) {
-        return this.itemHandler.getStackInSlot(OUTPUT_SLOT).getCount() + count <= this.itemHandler.getStackInSlot(OUTPUT_SLOT).getMaxStackSize();
+//        return this.itemHandler.getStackInSlot(OUTPUT_SLOT).getCount() + count <= this.itemHandler.getStackInSlot(OUTPUT_SLOT).getMaxStackSize();
+        return true;
     }
 }
