@@ -13,17 +13,22 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.Nullable;
 
-public class
-MatterConversionMenu extends AbstractContainerMenu {
+public class MatterConversionMenu extends AbstractContainerMenu {
     public final MatterConversionBlockEntity blockEntity;
     public final Level level;
     private final ContainerData data;
 
-    public MatterConversionMenu(int containerId, Inventory inv, FriendlyByteBuf extraData){
+    private static final int TE_INVENTORY_ROWS = 5;  // Number of rows in the scrollable inventory
+    private static final int TE_INVENTORY_COLUMNS = 9; // Number of columns in the scrollable inventory
+    private static final int SLOT_SIZE = 18; // Slot size in pixels
+    private static final int INVENTORY_START_X = 8; // Starting X position of the scrollable inventory
+    private static final int INVENTORY_START_Y = 17; // Starting Y position of the scrollable inventory
+
+    public MatterConversionMenu(int containerId, Inventory inv, FriendlyByteBuf extraData) {
         this(containerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(2));
     }
 
-    public MatterConversionMenu(int containerId, Inventory inv, BlockEntity entity, ContainerData data){
+    public MatterConversionMenu(int containerId, Inventory inv, BlockEntity entity, ContainerData data) {
         super(ModMenuTypes.MATTER_CONVERSION_MENU.get(), containerId);
         checkContainerSize(inv, 41);
         blockEntity = ((MatterConversionBlockEntity) entity);
@@ -40,20 +45,51 @@ MatterConversionMenu extends AbstractContainerMenu {
             this.addSlot(new SlotItemHandler(iItemHandler, 6, 116, 5));
             this.addSlot(new SlotItemHandler(iItemHandler, 7, 134, 5));
             this.addSlot(new SlotItemHandler(iItemHandler, 8, 152, 5));
+            for (int i = 0; i < 5; ++i) {
+                for (int l = 0; l < 9; ++l) {
+                    this.addSlot(new SlotItemHandler(iItemHandler, l + i * 9 + 9, 8 + l * 18, 36 + i * 18));
+                }
+            }
+
+
+
+
+            //Attempting Slots for the Scrolling....
+
+            // Add slots for the scrollable inventory
+//            for (int row = 0; row < TE_INVENTORY_ROWS; row++) {
+//                for (int col = 0; col < TE_INVENTORY_COLUMNS; col++) {
+//                    int index = row * TE_INVENTORY_COLUMNS + col;
+//                    int x = INVENTORY_START_X + col * SLOT_SIZE;
+//                    int y = INVENTORY_START_Y + row * SLOT_SIZE;
+//                    this.addSlot(new SlotItemHandler(iItemHandler, index + 9, x, y));
+//                }
+//            }
         });
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-
         addDataSlots(data);
     }
+    // Handle slot clicks
+    public void handleSlotClick(int slotIndex, int button) {
+        SlotItemHandler slot = (SlotItemHandler) this.getSlot(slotIndex);
+        if (slot != null) {
+            // Simulate handling item click
+            // Example: Place or pick up an item
+            ItemStack stack = slot.getItem();
+            // Perform actions based on the button and slot state
+            // For example, if button is left click, pick up item
+        }
+    }
 
-    public boolean isCrafting(){
+
+    public boolean isCrafting() {
         return data.get(0) > 0;
     }
 
-    public int getScaledProgress(){
+    public int getScaledProgress() {
         int progress = this.data.get(0);
         int maxProgress = this.data.get(1);
         int progressArrowSize = 26;
@@ -89,7 +125,7 @@ MatterConversionMenu extends AbstractContainerMenu {
         ItemStack copyOfSourceStack = sourceStack.copy();
 
         int teInventoryStart = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
-        int teInventoryEnd = teInventoryStart + TE_INVENTORY_SLOT_COUNT;
+        int teInventoryEnd = teInventoryStart + TE_INVENTORY_ROWS * TE_INVENTORY_COLUMNS;
 
         // Check if the slot clicked is one of the vanilla container slots
         if (pIndex < VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT) {
@@ -122,17 +158,17 @@ MatterConversionMenu extends AbstractContainerMenu {
                 player, ModBlocks.MATTER_CONVERSION_BLOCK.get());
     }
 
-    private void addPlayerInventory(Inventory playerInventory){
-        for(int i = 0; i< 3; ++i){
-            for(int l = 0; l< 9; ++l){
+    private void addPlayerInventory(Inventory playerInventory) {
+        for (int i = 0; i < 3; ++i) {
+            for (int l = 0; l < 9; ++l) {
                 this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, 95 + i * 18));
             }
         }
     }
-    private void addPlayerHotbar(Inventory playerInventory){
-        for (int i = 0; i< 9; ++i){
+
+    private void addPlayerHotbar(Inventory playerInventory) {
+        for (int i = 0; i < 9; ++i) {
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 153));
         }
     }
-
 }
