@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MatterConversionBlockEntity extends BlockEntity implements MenuProvider {
-    private final ItemStackHandler itemHandler = new ItemStackHandler(41);
+    private final ItemStackHandler itemHandler = new ItemStackHandler(54);
 
     public ItemStackHandler getItems(){
         return this.itemHandler;
