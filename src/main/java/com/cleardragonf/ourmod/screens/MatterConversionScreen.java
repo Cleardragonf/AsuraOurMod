@@ -38,18 +38,28 @@ public class MatterConversionScreen extends AbstractContainerScreen<MatterConver
         this.titleLabelY = 10000;
     }
 
+    // Assuming each slot is 18 pixels in height (default slot size in Minecraft)
+    final int SLOT_HEIGHT = 18;
+
+    // Calculate visible slots based on the height of the GUI and any top/bottom margins
+    int visibleSlots = (this.imageHeight - 17 * 2) / SLOT_HEIGHT; // 17*2 represents padding/margins
+
+
     @Override
     protected void renderBg(GuiGraphics guiGraphics, float v, int i, int i1) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.setShaderTexture(0, TEXTURE);
+
         int x = (width - imageWidth) / 2;
         int y = (height - imageHeight) / 2;
         guiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
 
         // Render slots with scroll offset
         this.menu.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(iItemHandler -> {
-            for (int j = 0; j < iItemHandler.getSlots(); j++) {
+            int totalSlots = iItemHandler.getSlots();
+            int visibleSlots = (this.imageHeight - 17 * 2) / SLOT_SIZE; // Visible area for slots
+            for (int j = 0; j < totalSlots; j++) {
                 int slotY = y + 17 + (j * SLOT_SIZE) - (scrollOffset * SLOT_SIZE);
                 if (slotY >= y + 17 && slotY < y + imageHeight - 17) {
                     drawSlot(guiGraphics, x + 80, slotY, j);
@@ -61,8 +71,16 @@ public class MatterConversionScreen extends AbstractContainerScreen<MatterConver
         int scrollbarX = x + SCROLLBAR_X;
         int scrollbarY = y + SCROLLBAR_Y;
         guiGraphics.fill(scrollbarX, scrollbarY, scrollbarX + SCROLLBAR_WIDTH, scrollbarY + SCROLLBAR_HEIGHT, 0xFF000000); // Background
-        guiGraphics.fill(scrollbarX + 2, scrollbarY + 2 + (scrollOffset * (SCROLLBAR_HEIGHT / MAX_SCROLL)), scrollbarX + SCROLLBAR_WIDTH - 2, scrollbarY + SCROLLBAR_HEIGHT / MAX_SCROLL + 2 + (scrollOffset * (SCROLLBAR_HEIGHT / MAX_SCROLL)), 0xFF888888); // Scroll Handle
+
+        // Calculate scroll handle position
+        int totalSlots = this.menu.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).map(iItemHandler -> iItemHandler.getSlots()).orElse(0);
+        int maxScrollOffset = Math.max(0, totalSlots - visibleSlots);
+        int scrollHandleHeight = (int)((float)SCROLLBAR_HEIGHT * ((float)visibleSlots / totalSlots));
+        int scrollHandleY = scrollbarY + (int)(((float)scrollOffset / maxScrollOffset) * (SCROLLBAR_HEIGHT - scrollHandleHeight));
+
+        guiGraphics.fill(scrollbarX + 2, scrollHandleY, scrollbarX + SCROLLBAR_WIDTH - 2, scrollHandleY + scrollHandleHeight, 0xFF888888); // Scroll Handle
     }
+
 
     private void drawSlot(GuiGraphics guiGraphics, int x, int y, int slotIndex) {
         guiGraphics.blit(TEXTURE, x, y, 176, 0, SLOT_SIZE, SLOT_SIZE);  // Draw slot background
@@ -76,13 +94,47 @@ public class MatterConversionScreen extends AbstractContainerScreen<MatterConver
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
+        int totalSlots = this.menu.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER)
+                .map(iItemHandler -> iItemHandler.getSlots()).orElse(0);
+
+        // Adjust maximum scroll based on the number of slots and visible area
+        int visibleSlots = (this.imageHeight - 17 * 2) / SLOT_SIZE; // Adjust for top/bottom margins
+        int maxScrollOffset = Math.max(0, totalSlots - visibleSlots);
+
+        // Scroll up
         if (delta > 0 && scrollOffset > 0) {
             scrollOffset--;
-        } else if (delta < 0 && scrollOffset < MAX_SCROLL - 1) {
+        }
+        // Scroll down
+        else if (delta < 0 && scrollOffset < maxScrollOffset) {
             scrollOffset++;
         }
+
         return true;
     }
+
+    @Override
+    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
+        if (button == 0 && isWithinScrollbar(mouseX, mouseY)) {
+            int totalSlots = this.menu.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).map(iItemHandler -> iItemHandler.getSlots()).orElse(0);
+            int visibleSlots = (this.imageHeight - 17 * 2) / SLOT_SIZE;
+            int maxScrollOffset = Math.max(0, totalSlots - visibleSlots);
+
+            int scrollbarY = this.topPos + SCROLLBAR_Y;
+            float scrollRatio = (float)(mouseY - scrollbarY) / SCROLLBAR_HEIGHT;
+            scrollOffset = Math.min(maxScrollOffset, Math.max(0, (int)(scrollRatio * maxScrollOffset)));
+            return true;
+        }
+        return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+    }
+
+    private boolean isWithinScrollbar(double mouseX, double mouseY) {
+        int scrollbarX = this.leftPos + SCROLLBAR_X;
+        int scrollbarY = this.topPos + SCROLLBAR_Y;
+        return mouseX >= scrollbarX && mouseX <= scrollbarX + SCROLLBAR_WIDTH && mouseY >= scrollbarY && mouseY <= scrollbarY + SCROLLBAR_HEIGHT;
+    }
+
+
 
     @Override
     public void render(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {

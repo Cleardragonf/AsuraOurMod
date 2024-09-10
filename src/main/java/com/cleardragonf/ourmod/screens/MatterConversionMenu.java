@@ -13,63 +13,12 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.Nullable;
 
-public class
-MatterConversionMenu extends AbstractContainerMenu {
+public class MatterConversionMenu extends AbstractContainerMenu {
     public final MatterConversionBlockEntity blockEntity;
     public final Level level;
     private final ContainerData data;
 
-    public MatterConversionMenu(int containerId, Inventory inv, FriendlyByteBuf extraData){
-        this(containerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(2));
-    }
-
-    public MatterConversionMenu(int containerId, Inventory inv, BlockEntity entity, ContainerData data){
-        super(ModMenuTypes.MATTER_CONVERSION_MENU.get(), containerId);
-        checkContainerSize(inv, 41);
-        blockEntity = ((MatterConversionBlockEntity) entity);
-        this.level = inv.player.level();
-        this.data = data;
-
-        this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(iItemHandler -> {
-            this.addSlot(new SlotItemHandler(iItemHandler, 0, 8, 5));
-            this.addSlot(new SlotItemHandler(iItemHandler, 1, 26, 5));
-            this.addSlot(new SlotItemHandler(iItemHandler, 2, 44, 5));
-            this.addSlot(new SlotItemHandler(iItemHandler, 3, 62, 5));
-            this.addSlot(new SlotItemHandler(iItemHandler, 4, 80, 5));
-            this.addSlot(new SlotItemHandler(iItemHandler, 5, 98, 5));
-            this.addSlot(new SlotItemHandler(iItemHandler, 6, 116, 5));
-            this.addSlot(new SlotItemHandler(iItemHandler, 7, 134, 5));
-            this.addSlot(new SlotItemHandler(iItemHandler, 8, 152, 5));
-        });
-
-        addPlayerInventory(inv);
-        addPlayerHotbar(inv);
-
-
-        addDataSlots(data);
-    }
-
-    public boolean isCrafting(){
-        return data.get(0) > 0;
-    }
-
-    public int getScaledProgress(){
-        int progress = this.data.get(0);
-        int maxProgress = this.data.get(1);
-        int progressArrowSize = 26;
-
-        return maxProgress != 0 && progress != 0 ? progress * progressArrowSize / maxProgress : 0;
-    }
-
-
-
-    // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
-    // must assign a slot number to each of the slots used by the GUI.
-    // For this container, we can see both the tile inventory's slots as well as the player inventory slots and the hotbar.
-    // Each time we add a Slot to the container, it automatically increases the slotIndex, which means
-    //  0 - 8 = hotbar slots (which will map to the InventoryPlayer slot numbers 0 - 8)
-    //  9 - 35 = player inventory slots (which map to the InventoryPlayer slot numbers 9 - 35)
-    //  36 - 44 = TileInventory slots, which map to our TileEntity slot numbers 0 - 8)
+    // Slot indices and counts
     private static final int HOTBAR_SLOT_COUNT = 9;
     private static final int PLAYER_INVENTORY_ROW_COUNT = 3;
     private static final int PLAYER_INVENTORY_COLUMN_COUNT = 9;
@@ -77,9 +26,44 @@ MatterConversionMenu extends AbstractContainerMenu {
     private static final int VANILLA_SLOT_COUNT = HOTBAR_SLOT_COUNT + PLAYER_INVENTORY_SLOT_COUNT;
     private static final int VANILLA_FIRST_SLOT_INDEX = 0;
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
+    private static final int TE_INVENTORY_SLOT_COUNT = 41;  // Number of slots for the custom inventory
 
-    // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 41;  // must be the number of slots you have!
+    private float scrollOffset = 0.0F; // Current scroll offset
+
+    public MatterConversionMenu(int containerId, Inventory inv, FriendlyByteBuf extraData) {
+        this(containerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(2));
+    }
+
+    public MatterConversionMenu(int containerId, Inventory inv, BlockEntity entity, ContainerData data) {
+        super(ModMenuTypes.MATTER_CONVERSION_MENU.get(), containerId);
+        checkContainerSize(inv, TE_INVENTORY_SLOT_COUNT);
+        this.blockEntity = (MatterConversionBlockEntity) entity;
+        this.level = inv.player.level();
+        this.data = data;
+
+        this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(iItemHandler -> {
+            for (int i = 0; i < TE_INVENTORY_SLOT_COUNT; i++) {
+                this.addSlot(new SlotItemHandler(iItemHandler, i, 8 + (i % 9) * 18, 5 + (i / 9) * 18));
+            }
+        });
+
+        addPlayerInventory(inv);
+        addPlayerHotbar(inv);
+
+        addDataSlots(data);
+    }
+
+    public boolean isCrafting() {
+        return data.get(0) > 0;
+    }
+
+    public int getScaledProgress() {
+        int progress = this.data.get(0);
+        int maxProgress = this.data.get(1);
+        int progressArrowSize = 26;
+
+        return maxProgress != 0 && progress != 0 ? progress * progressArrowSize / maxProgress : 0;
+    }
 
     @Override
     public ItemStack quickMoveStack(Player playerIn, int pIndex) {
@@ -118,21 +102,49 @@ MatterConversionMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()),
-                player, ModBlocks.MATTER_CONVERSION_BLOCK.get());
+        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player, ModBlocks.MATTER_CONVERSION_BLOCK.get());
     }
 
-    private void addPlayerInventory(Inventory playerInventory){
-        for(int i = 0; i< 3; ++i){
-            for(int l = 0; l< 9; ++l){
+    private void addPlayerInventory(Inventory playerInventory) {
+        for (int i = 0; i < 3; ++i) {
+            for (int l = 0; l < 9; ++l) {
                 this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, 95 + i * 18));
             }
         }
     }
-    private void addPlayerHotbar(Inventory playerInventory){
-        for (int i = 0; i< 9; ++i){
+
+    private void addPlayerHotbar(Inventory playerInventory) {
+        for (int i = 0; i < 9; ++i) {
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 153));
         }
     }
 
+    // Scroll-related methods
+    public void scrollTo(float scrollPosition) {
+        this.scrollOffset = scrollPosition;
+        int rowIndex = this.getRowIndexForScroll(scrollPosition);
+
+        for (int j = 0; j < 5; ++j) {
+            for (int k = 0; k < 9; ++k) {
+                int index = k + (j + rowIndex) * 9;
+                if (index >= 0 && index < this.blockEntity.getItems().getSlots()) {
+                    this.blockEntity.getItems().setStackInSlot(k + j * 9, this.blockEntity.getItems().getStackInSlot(index));
+                } else {
+                    this.blockEntity.getItems().setStackInSlot(k + j * 9, ItemStack.EMPTY);
+                }
+            }
+        }
+    }
+
+    private int getRowIndexForScroll(float scrollPosition) {
+        return Math.max((int) ((double) (scrollPosition * this.calculateRowCount()) + 0.5D), 0);
+    }
+
+    private int calculateRowCount() {
+        return Math.max(0, this.blockEntity.getItems().getSlots() / 9 - 5);
+    }
+
+    public boolean canScroll() {
+        return this.blockEntity.getItems().getSlots() > 45;
+    }
 }

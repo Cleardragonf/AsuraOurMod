@@ -35,6 +35,10 @@ import java.util.List;
 public class MatterConversionBlockEntity extends BlockEntity implements MenuProvider {
     private final ItemStackHandler itemHandler = new ItemStackHandler(41);
 
+    public ItemStackHandler getItems(){
+        return this.itemHandler;
+    }
+
     private static final int INPUT_SLOT_1 = 0;
     private static final int INPUT_SLOT_2 = 1;
     private static final int INPUT_SLOT_3 = 2;
